@@ -1,7 +1,7 @@
 === mit3xxx.de Toolbar ===
 Contributors: The mit3xxx.de Team
 Donate link: http://www.mit3xxx.de/
-Tags: toolbar, twitter, rss, bookmark
+Tags: toolbar, sidebar, widget, twitter, rss, bookmark
 Requires at least: 2.8
 Tested up to: 2.8
 Stable tag: trunk
