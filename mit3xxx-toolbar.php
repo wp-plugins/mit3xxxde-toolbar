@@ -21,7 +21,7 @@ Plugin Name: Mit3xxx Toolbar
 Plugin URI: http://www.mit3xxx.de/
 Description: The mit3xxx toolbar allows you to add the following features to your site: * navigate to the start page * integrate a button to your rss-feed * let your users tweet your content * let your users share your content to social network sites such as Delicious, Digg, Facebook, and more social bookmarking and sharing sites * Provides more then 20 themes
 Author: The mit3xxx.de Team
-Version: 1.0
+Version: 1.0.1
 Author URI: http://www.mit3xxx.de/
 */
 
@@ -155,15 +155,44 @@ function mit3xxx_toolbar_add_menu() {
 }
 
 
+function mit3xxx_getAccount() {
+	$sResult = "anonymous";
+	$account = get_option("mit3xxx_toolbar_account", "m3x-");
+	$account = trim($account);
+	if ("" != $account && "m3x-" != $account) {
+		$sResult = $account;
+	}
+	return $sResult;
+}
 
+function mit3xxx_getValidURL($sUrl) {
+	$sResult = "";
+	$sTrim = trim($sUrl);
+	if ("http://" != $sTrim && "" != $sTrim) {
+		$sResult = $sTrim;
+	}
+	return $sResult;
+}
+
+function mit3xxx_getWebsite() {
+	$website = get_option("mit3xxx_toolbar_website", "");
+	$sResult = mit3xxx_getValidURL($website);
+	return $sResult;
+}
+
+function mit3xxx_getRss() {
+	$website = get_option("mit3xxx_toolbar_rss", "");
+	$sResult = mit3xxx_getValidURL($website);
+	return $sResult;
+}
 
 function mit3xxx_toolbar_footer($content) {
 	$active = get_option("mit3xxx_toolbar_active", False);
 	
 	if (True == $active) {
-	    $account = get_option("mit3xxx_toolbar_account", "m3x-");
-	    $website = get_option("mit3xxx_toolbar_website", "");
-	    $rss = get_option("mit3xxx_toolbar_rss", "");
+	    $account = mit3xxx_getAccount();
+	    $website = mit3xxx_getWebsite();
+	    $rss = mit3xxx_getRss();
 	    $theme = get_option("mit3xxx_toolbar_theme", "start");
 	    $position = get_option("mit3xxx_toolbar_position", "left");
 	 

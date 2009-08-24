@@ -4,7 +4,7 @@ Donate link: http://www.mit3xxx.de/
 Tags: toolbar, sidebar, widget, twitter, rss, bookmark
 Requires at least: 2.8
 Tested up to: 2.8
-Stable tag: trunk
+Stable tag: 1.0.1
 
 Adds the mit3xxx.de toolbar to your website.
 
@@ -50,6 +50,11 @@ Yep! The features you see today on mit3xxx.de will always be free.
 PHP 5+ is preferred; PHP 4 is supported.
 
 == Changelog ==
+
+= 1.0.1 =
+* account is not a mandatory field
+* website is not a mandatory field
+* rss is not a mandatory field
 
 = 1.0 =
 * first release
