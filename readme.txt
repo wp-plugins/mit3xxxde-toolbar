@@ -27,8 +27,6 @@ The mit3xxx toolbar allows you to add the following features to your site:
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
-
 1. Upload the folder 'mit3xxx-toolbar' to the '/wp-content/plugins/' directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Customize the plugin in the Settings > 'mit3xxx.de toolbar' menu
@@ -44,12 +42,18 @@ Yep! The features you see today on mit3xxx.de will always be free.
 
 1. The toolbar with the "start"-Theme. More then 20 themes available.
 2. Bookmark-Dialog with the "start"-Theme.
+3. Twitter-Dialog with the "start"-Theme.
 
 == PHP Version ==
 
 PHP 5+ is preferred; PHP 4 is supported.
 
 == Changelog ==
+
+= 1.0.2 =
+* new TwitterDialog with tweets and "follow me"-button
+* fix many bugs
+
 
 = 1.0.1 =
 * account is not a mandatory field
