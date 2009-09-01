@@ -21,7 +21,7 @@ Plugin Name: Mit3xxx Toolbar
 Plugin URI: http://www.mit3xxx.de/
 Description: The mit3xxx toolbar allows you to add the following features to your site: * navigate to the start page * integrate a button to your rss-feed * let your users tweet your content * let your users share your content to social network sites such as Delicious, Digg, Facebook, and more social bookmarking and sharing sites * Provides more then 20 themes
 Author: The mit3xxx.de Team
-Version: 1.0.1
+Version: 1.0.2
 Author URI: http://www.mit3xxx.de/
 */
 
@@ -34,13 +34,14 @@ add_filter('wp_footer', 'mit3xxx_toolbar_footer');
 //$mit3xxx_toolbar_account = get_option('mit3xxx_toolbar_account');
 
 if ('insert' == $HTTP_POST_VARS['action']) {
-	update_option("mit3xxx_toolbar_active",$HTTP_POST_VARS['mit3xxx_toolbar_active']);
+    update_option("mit3xxx_toolbar_active",$HTTP_POST_VARS['mit3xxx_toolbar_active']);
     update_option("mit3xxx_toolbar_account",$HTTP_POST_VARS['mit3xxx_toolbar_account']);
     
     update_option("mit3xxx_toolbar_website",$HTTP_POST_VARS['mit3xxx_toolbar_website']);
     update_option("mit3xxx_toolbar_rss",$HTTP_POST_VARS['mit3xxx_toolbar_rss']);
     update_option("mit3xxx_toolbar_theme",$HTTP_POST_VARS['mit3xxx_toolbar_theme']);
     update_option("mit3xxx_toolbar_position",$HTTP_POST_VARS['mit3xxx_toolbar_position']);
+    update_option("mit3xxx_toolbar_twitter_account",$HTTP_POST_VARS['mit3xxx_toolbar_twitter_account']);
 }
 
 
@@ -96,6 +97,14 @@ function mit3xxx_toolbar_option_page() {
             <br />Enter the url of your RSS-Feed.
           </td>
         </tr>
+        
+        <tr>
+          <th nowrap valign="top" width="33%">Twitter Account</th>
+          <td>
+            <input name="mit3xxx_toolbar_twitter_account" value="<?php echo get_option("mit3xxx_toolbar_twitter_account", ""); ?>" type="text" size="50" />
+            <br />Enter your twitter account.
+          </td>
+        </tr>
 
         <tr>
           <th nowrap valign="top" width="33%">Theme</th>
@@ -135,6 +144,7 @@ foreach ($positions as $position) {
             <br />Select a position.
           </td>
         </tr>
+        
         </table>
         
         <div class="submit">
@@ -156,57 +166,65 @@ function mit3xxx_toolbar_add_menu() {
 
 
 function mit3xxx_getAccount() {
-	$sResult = "anonymous";
-	$account = get_option("mit3xxx_toolbar_account", "m3x-");
-	$account = trim($account);
-	if ("" != $account && "m3x-" != $account) {
-		$sResult = $account;
-	}
-	return $sResult;
+    $sResult = "anonymus";
+    $account = get_option("mit3xxx_toolbar_account", "m3x-");
+    $account = trim($account);
+    if ("" != $account && "m3x-" != $account) {
+        $sResult = $account;
+    }
+    return $sResult;
 }
 
 function mit3xxx_getValidURL($sUrl) {
-	$sResult = "";
-	$sTrim = trim($sUrl);
-	if ("http://" != $sTrim && "" != $sTrim) {
-		$sResult = $sTrim;
-	}
-	return $sResult;
+    $sResult = "";
+    $sTrim = trim($sUrl);
+    if ("http://" != $sTrim && "" != $sTrim) {
+        $sResult = $sTrim;
+    }
+    return $sResult;
 }
 
 function mit3xxx_getWebsite() {
-	$website = get_option("mit3xxx_toolbar_website", "");
-	$sResult = mit3xxx_getValidURL($website);
-	return $sResult;
+    $website = get_option("mit3xxx_toolbar_website", "");
+    $sResult = mit3xxx_getValidURL($website);
+    return $sResult;
 }
 
 function mit3xxx_getRss() {
-	$website = get_option("mit3xxx_toolbar_rss", "");
-	$sResult = mit3xxx_getValidURL($website);
-	return $sResult;
+    $website = get_option("mit3xxx_toolbar_rss", "");
+    $sResult = mit3xxx_getValidURL($website);
+    return $sResult;
+}
+
+function mit3xxx_getTwitterAccount() {
+    $sResult = get_option("mit3xxx_toolbar_twitter_account", "");
+    return $sResult;
 }
 
 function mit3xxx_toolbar_footer($content) {
-	$active = get_option("mit3xxx_toolbar_active", False);
-	
-	if (True == $active) {
-	    $account = mit3xxx_getAccount();
-	    $website = mit3xxx_getWebsite();
-	    $rss = mit3xxx_getRss();
-	    $theme = get_option("mit3xxx_toolbar_theme", "start");
-	    $position = get_option("mit3xxx_toolbar_position", "left");
-	 
-	    $codesnippet = '<div id="MIT3XXX_sidebar" name="MIT3XXX_sidebar" class="MIT3XXX_sidebar"><a id="MIT3XXX_sidebar_link" name="MIT3XXX_sidebar_link" href="http://www.mit3xxx.de/">this service is powered by www.mit3xxx.de</a></div>';
-	    $codesnippet .= '<script src="http://sidebar.mit3xxx.de/static/js/sidebar.js" type="text/javascript"></script><script type="text/javascript" charset="utf-8">var sidebar_options = {}; sidebar_options.homepage = "#WEBSITE#"; sidebar_options.rss = "#RSS#"; sidebar_options.theme = "#THEME#"; MIT3XXX.createSidebar("#POSITION#", "#ACCOUNT#", sidebar_options); </script><script src="http://sidebar.mit3xxx.de/static/js/sidebar_custom.js" type="text/javascript"></script><link href="http://sidebar.mit3xxx.de/static/css/sidebar.css" rel="stylesheet" type="text/css" />';
-	
-	    $codesnippet = str_replace('#ACCOUNT#', $account, $codesnippet);
-	    $codesnippet = str_replace('#WEBSITE#', $website, $codesnippet);
-	    $codesnippet = str_replace('#RSS#', $rss, $codesnippet);
-	    $codesnippet = str_replace('#POSITION#', $position, $codesnippet);
-	    $codesnippet = str_replace('#THEME#', $theme, $codesnippet);
-	    
-	    echo $codesnippet;
-	}    
+    $active = get_option("mit3xxx_toolbar_active", False);
+    
+    if (True == $active) {
+        $account = mit3xxx_getAccount();
+        $website = mit3xxx_getWebsite();
+        $rss = mit3xxx_getRss();
+        $twitter_account = mit3xxx_getTwitterAccount();
+        $theme = get_option("mit3xxx_toolbar_theme", "start");
+        $position = get_option("mit3xxx_toolbar_position", "left");
+     
+        $codesnippet = '<div id="MIT3XXX_sidebar" name="MIT3XXX_sidebar" class="MIT3XXX_sidebar"><a id="MIT3XXX_sidebar_link" name="MIT3XXX_sidebar_link" href="http://www.mit3xxx.de/">this service is powered by www.mit3xxx.de</a></div>';
+        $codesnippet .= '<script src="http://sidebar.mit3xxx.de/static/js/sidebar.js" type="text/javascript"></script><script type="text/javascript" charset="utf-8">var sidebar_options = {}; sidebar_options.homepage = "#WEBSITE#"; sidebar_options.rss = "#RSS#"; sidebar_options.theme = "#THEME#"; sidebar_options.twitter_account = "#TWITTER_ACCOUNT#"; MIT3XXX.createSidebar("#POSITION#", "#ACCOUNT#", sidebar_options); </script><script src="http://sidebar.mit3xxx.de/static/js/sidebar_custom.js" type="text/javascript"></script><link href="http://sidebar.mit3xxx.de/static/css/sidebar.css" rel="stylesheet" type="text/css" />';
+    
+        $codesnippet = str_replace('#ACCOUNT#', $account, $codesnippet);
+        $codesnippet = str_replace('#WEBSITE#', $website, $codesnippet);
+        $codesnippet = str_replace('#RSS#', $rss, $codesnippet);
+        $codesnippet = str_replace('#TWITTER_ACCOUNT#', $twitter_account, $codesnippet);
+        $codesnippet = str_replace('#POSITION#', $position, $codesnippet);
+        $codesnippet = str_replace('#THEME#', $theme, $codesnippet);
+        
+
+        echo $codesnippet;
+    }    
     return $content;
 }
 
