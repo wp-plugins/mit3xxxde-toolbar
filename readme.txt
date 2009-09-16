@@ -4,7 +4,7 @@ Donate link: http://www.mit3xxx.de/
 Tags: toolbar, sidebar, widget, twitter, rss, bookmark, facebook, del.icio.us, delicious, friendfeed , yahoo, google bookmarks, netvibes, linkedIn, misterwong 
 Requires at least: 2.8
 Tested up to: 2.8
-Stable tag: 1.0.2
+Stable tag: 2.0
 
 Adds the mit3xxx.de toolbar to your website.
 
@@ -43,12 +43,18 @@ Yep! The features you see today on mit3xxx.de will always be free.
 1. The toolbar with the "start"-Theme. More then 20 themes available.
 2. Bookmark-Dialog with the "start"-Theme.
 3. Twitter-Dialog with the "start"-Theme.
+3. Admin-Dialog.
 
 == PHP Version ==
 
 PHP 5+ is preferred; PHP 4 is supported.
 
 == Changelog ==
+
+= 2.0 =
+* new toolbar code
+* new admin page
+* major bugfix release
 
 = 1.0.2 =
 * new TwitterDialog with tweets and "follow me"-button
