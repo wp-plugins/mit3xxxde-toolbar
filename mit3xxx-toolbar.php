@@ -18,10 +18,10 @@
 
 /*
 Plugin Name: Mit3xxx Toolbar
-Plugin URI: http://www.mit3xxx.de/
+Plugin URI: http://wordpress.org/extend/plugins/mit3xxxde-toolbar
 Description: The mit3xxx toolbar allows you to add the following features to your site: * navigate to the start page * integrate a button to your rss-feed * let your users tweet your content * let your users share your content to social network sites such as Delicious, Digg, Facebook, and more social bookmarking and sharing sites * Provides more then 20 themes
 Author: The mit3xxx.de Team
-Version: 2.0
+Version: 2.1
 Author URI: http://www.mit3xxx.de/
 */
 
@@ -59,6 +59,44 @@ function mit3xxx_toolbar_option_page() {
             
       <form name="form1" method="post" action="<?php echo $location; ?>">
         <h2>mit3xxx Toolbar</h2>
+        
+
+        <fieldset class="options" name="optional">
+        <legend>Optional settings</legend>
+        <table width="100%" cellspacing="2" cellpadding="5" class="editform">
+
+
+        <tr>
+          <th nowrap valign="top" align="left" width="33%">Website</th>
+          <td>
+            <input name="mit3xxx_toolbar_website" value="<?php echo get_option("mit3xxx_toolbar_website", "http://"); ?>" type="text" size="50" />
+            <br />Enter the url of your website. For example: http://www.mit3xxx.de/
+          </td>
+        </tr>
+ 
+        <tr>
+          <th nowrap valign="top" align="left" idth="33%">RSS</th>
+          <td>
+            <input name="mit3xxx_toolbar_rss" value="<?php echo get_option("mit3xxx_toolbar_rss", "http://"); ?>" type="text" size="50" />
+            <br />Enter the url of your RSS-Feed. For example: http://www.mit3xxx.de/rss
+          </td>
+        </tr>
+        
+        <tr>
+          <th nowrap valign="top" align="left" width="33%">Twitter Account</th>
+          <td>
+            <input name="mit3xxx_toolbar_twitter_account" value="<?php echo get_option("mit3xxx_toolbar_twitter_account", ""); ?>" type="text" size="50" />
+            <br />Enter your twitter account. For example: mit3xxx
+          </td>
+        </tr>
+        </table>
+        </fieldset>
+
+
+
+
+        
+        
         <fieldset class="options" name="general">
         <legend>General settings</legend>
         <table width="100%" cellspacing="2" cellpadding="5" class="editform">
@@ -109,37 +147,6 @@ foreach ($positions as $position) {
        </fieldset>
 
 
-        <fieldset class="options" name="optional">
-        <legend>Optional settings</legend>
-        <table width="100%" cellspacing="2" cellpadding="5" class="editform">
-
-
-        <tr>
-          <th nowrap valign="top" align="left" width="33%">Website</th>
-          <td>
-            <input name="mit3xxx_toolbar_website" value="<?php echo get_option("mit3xxx_toolbar_website", "http://"); ?>" type="text" size="50" />
-            <br />Enter the url of your website. For example: http://www.mit3xxx.de/
-          </td>
-        </tr>
- 
-        <tr>
-          <th nowrap valign="top" align="left" idth="33%">RSS</th>
-          <td>
-            <input name="mit3xxx_toolbar_rss" value="<?php echo get_option("mit3xxx_toolbar_rss", "http://"); ?>" type="text" size="50" />
-            <br />Enter the url of your RSS-Feed. For example: http://www.mit3xxx.de/rss
-          </td>
-        </tr>
-        
-        <tr>
-          <th nowrap valign="top" align="left" width="33%">Twitter Account</th>
-          <td>
-            <input name="mit3xxx_toolbar_twitter_account" value="<?php echo get_option("mit3xxx_toolbar_twitter_account", ""); ?>" type="text" size="50" />
-            <br />Enter your twitter account.
-          </td>
-        </tr>
-        </table>
-        </fieldset>
-
         <fieldset class="options" name="account">
         <legend>Account settings</legend>
         <table width="100%" cellspacing="2" cellpadding="5" class="editform">        
@@ -147,11 +154,13 @@ foreach ($positions as $position) {
           <th nowrap valign="top" align="left" width="33%">Account ID (optional)</th>
           <td>
             <input name="mit3xxx_toolbar_account" value="<?php echo get_option("mit3xxx_toolbar_account", "m3x-"); ?>" type="text" size="50" />
-            <br />Enter your mit3xxx toolbar account ID.
+            <br />Enter your mit3xxx toolbar account ID. The format is: m3x-****-**
           </td>
         </tr>        
         </table>
-        </fieldset>
+        </fieldset>        
+
+
         
         <div class="submit">
             <input type="submit" value="Update Options" />
@@ -215,9 +224,27 @@ function mit3xxx_toolbar_footer($content) {
     $theme = get_option("mit3xxx_toolbar_theme", "start");
     $position = get_option("mit3xxx_toolbar_position", "left");
     
-    $codesnippet = '<div id="mit3xxx_toolbar" class="mit3xxx_toolbar"><a id="mit3xxx_toolbar_powered" href="http://www.mit3xxx.de/"><img src="http://toolbar.mit3xxx.de/static/images/blank.gif" alt="toolbar powered by www.mit3xxx.de" title="toolbar powered by www.mit3xxx.de" /></a></div>';   
-    $codesnippet .= '<script type="text/javascript" charset="utf-8">mit3xxxToolbarOptions = {};mit3xxxToolbarOptions.homepage = "#WEBSITE#";mit3xxxToolbarOptions.rss = "#RSS#";mit3xxxToolbarOptions.theme = "#THEME#";mit3xxxToolbarOptions.twitter_account = "#TWITTER_ACCOUNT#";mit3xxxToolbarOptions.position = "#POSITION#";mit3xxxToolbarOptions.account = "#ACCOUNT#";</script>';
-    $codesnippet .= '<script src="http://toolbar.mit3xxx.de/static/js/m3x-toolbar.js" type="text/javascript"></script>';
+    $codesnippet = '
+<div id="mit3xxx_toolbar" class="mit3xxx_toolbar">
+<a id="mit3xxx_toolbar_powered" href="http://www.mit3xxx.de/">
+<img src="http://toolbar.mit3xxx.de/static/images/blank.gif" alt="toolbar powered by www.mit3xxx.de" title="toolbar powered by www.mit3xxx.de" />
+</a>
+</div>
+<script type="text/javascript" charset="utf-8">
+//<![CDATA[
+mit3xxxToolbarOptions = {};
+mit3xxxToolbarOptions.source = "wordpress";
+mit3xxxToolbarOptions.version = "3-0";
+mit3xxxToolbarOptions.homepage = "#WEBSITE#";
+mit3xxxToolbarOptions.rss = "#RSS#";
+mit3xxxToolbarOptions.theme = "#THEME#";
+mit3xxxToolbarOptions.twitter_account = "#TWITTER_ACCOUNT#";
+mit3xxxToolbarOptions.position = "#POSITION#";
+mit3xxxToolbarOptions.account = "#ACCOUNT#";
+//]]>
+</script>
+<script src="http://toolbar.mit3xxx.de/static/js/m3x-toolbar.js" type="text/javascript"></script>
+';
     
     $codesnippet = str_replace('#ACCOUNT#', $account, $codesnippet);
     $codesnippet = str_replace('#WEBSITE#', $website, $codesnippet);
