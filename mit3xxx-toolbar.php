@@ -21,7 +21,7 @@ Plugin Name: Mit3xxx Toolbar
 Plugin URI: http://wordpress.org/extend/plugins/mit3xxxde-toolbar
 Description: The mit3xxx toolbar allows you to add the following features to your site: * navigate to the start page * integrate a button to your rss-feed * let your users tweet your content * let your users share your content to social network sites such as Delicious, Digg, Facebook, and more social bookmarking and sharing sites * Provides more then 20 themes
 Author: The mit3xxx.de Team
-Version: 2.1
+Version: 2.2
 Author URI: http://www.mit3xxx.de/
 */
 
@@ -37,7 +37,9 @@ if ('insert' == $HTTP_POST_VARS['action']) {
     update_option("mit3xxx_toolbar_rss",$HTTP_POST_VARS['mit3xxx_toolbar_rss']);
     update_option("mit3xxx_toolbar_theme",$HTTP_POST_VARS['mit3xxx_toolbar_theme']);
     update_option("mit3xxx_toolbar_position",$HTTP_POST_VARS['mit3xxx_toolbar_position']);
-    update_option("mit3xxx_toolbar_twitter_account",$HTTP_POST_VARS['mit3xxx_toolbar_twitter_account']);
+    update_option("mit3xxx_toolbar_twitter_account",$HTTP_POST_VARS['mit3xxx_toolbar_twitter_account']); 
+    update_option("mit3xxx_toolbar_show_twitter",$HTTP_POST_VARS['mit3xxx_toolbar_show_twitter']);
+    update_option("mit3xxx_toolbar_show_bookmarks",$HTTP_POST_VARS['mit3xxx_toolbar_show_bookmarks']);
 }
 
 
@@ -53,6 +55,12 @@ function mit3xxx_toolbar_option_page() {
 
     $mit3xxx_toolbar_position = get_option("mit3xxx_toolbar_position", "left");
     $positions = array('left', 'right');
+
+    $mit3xxx_toolbar_show_twitter = get_option("mit3xxx_toolbar_show_twitter", "show");
+    $showTwitter = array('show', 'hide');
+
+    $mit3xxx_toolbar_show_bookmarks = get_option("mit3xxx_toolbar_show_bookmarks", "show");
+    $showBookmarks = array('show', 'hide');
     
     ?>
     <div class="wrap">
@@ -60,11 +68,94 @@ function mit3xxx_toolbar_option_page() {
       <form name="form1" method="post" action="<?php echo $location; ?>">
         <h2>mit3xxx Toolbar</h2>
         
+        <fieldset class="options" name="general">
+        <legend>Layout settings</legend>
+        <table width="100%" cellspacing="2" cellpadding="5" class="editform">
+
+        <tr>
+          <th nowrap valign="top" align="left" width="33%">Theme</th>
+          <td>
+        <select name="mit3xxx_toolbar_theme">   
+<?php 
+foreach ($themes as $theme) {
+    if ($mit3xxx_toolbar_theme == $theme) {
+        echo "<option value='" . $theme . "' selected='selected'>" . $theme . "</option>";
+    }
+    else {
+        echo "<option value='" . $theme . "'>" . $theme . "</option>";
+    }
+}
+?>
+        </select>
+            <br />Select a theme.
+          </td>
+        </tr>
+        
+        <tr>
+          <th nowrap valign="top" align="left" width="33%">Position</th>
+          <td>
+
+        <select name="mit3xxx_toolbar_position">    
+<?php 
+foreach ($positions as $position) {
+    if ($mit3xxx_toolbar_position == $position) {
+        echo "<option value='" . $position . "' selected='selected'>" . $position . "</option>";
+    }
+    else {
+        echo "<option value='" . $position . "'>" . $position . "</option>";
+    }
+}
+?>
+        </select>
+            <br />Select a position.
+          </td>
+        </tr>
+
+        <tr>
+          <th nowrap valign="top" align="left" width="33%">Show twitter button</th>
+          <td>
+            <select name="mit3xxx_toolbar_show_twitter">                      
+<?php 
+foreach ($showTwitter as $show) {
+    if ($mit3xxx_toolbar_show_twitter == $show) {
+        echo "<option value='" . $show . "' selected='selected'>" . $show . "</option>";
+    }
+    else {
+        echo "<option value='" . $show . "'>" . $show . "</option>";
+    }
+}
+?>
+            </select>
+            <br />Select twitter visibility
+          </td>
+        </tr>
+
+        <tr>
+          <th nowrap valign="top" align="left" width="33%">Show bookmark button</th>
+          <td>
+            <select name="mit3xxx_toolbar_show_bookmarks">                     
+<?php 
+foreach ($showBookmarks as $show) {
+    if ($mit3xxx_toolbar_show_bookmarks == $show) {
+        echo "<option value='" . $show . "' selected='selected'>" . $show . "</option>";
+    }
+    else {
+        echo "<option value='" . $show . "'>" . $show . "</option>";
+    }
+}
+?>
+            </select>
+            <br />Select bookmark visibility
+          </td>
+        </tr>
+
+       </table>
+       </fieldset>
+
 
         <fieldset class="options" name="optional">
         <legend>Optional settings</legend>
         <table width="100%" cellspacing="2" cellpadding="5" class="editform">
-
 
         <tr>
           <th nowrap valign="top" align="left" width="33%">Website</th>
@@ -91,60 +182,8 @@ function mit3xxx_toolbar_option_page() {
         </tr>
         </table>
         </fieldset>
-
-
-
-
         
         
-        <fieldset class="options" name="general">
-        <legend>General settings</legend>
-        <table width="100%" cellspacing="2" cellpadding="5" class="editform">
-
-        
-
-
-        <tr>
-          <th nowrap valign="top" align="left" width="33%">Theme</th>
-          <td>
-        <select name="mit3xxx_toolbar_theme">   
-<?php 
-foreach ($themes as $theme) {
-    if ($mit3xxx_toolbar_theme == $theme) {
-        echo "<option value='" . $theme . "' selected='selected'>" . $theme . "</option>";
-    }
-    else {
-        echo "<option value='" . $theme . "'>" . $theme . "</option>";
-    }
-}
-?>
-        </select>
-            <br />Select a theme.
-          </td>
-        </tr>
-        
-        <tr>
-          <th nowrap valign="top" align="left" width="33%">Position</th>
-          <td>
-
-        <select name="mit3xxx_toolbar_position">     
-<?php 
-foreach ($positions as $position) {
-    if ($mit3xxx_toolbar_position == $position) {
-        echo "<option value='" . $position . "' selected='selected'>" . $position . "</option>";
-    }
-    else {
-        echo "<option value='" . $position . "'>" . $position . "</option>";
-    }
-}
-?>
-        </select>
-            <br />Select a position.
-          </td>
-        </tr>
-
-       </table>
-       </fieldset>
 
 
         <fieldset class="options" name="account">
@@ -211,18 +250,41 @@ function mit3xxx_getRss() {
     return $sResult;
 }
 
+function mit3xxx_getShowTwitter() {
+    $bResult = 'true';
+    $show = get_option("mit3xxx_toolbar_show_twitter", "show");
+    if ("show" != $show) {        
+        $bResult = 'false';
+    }
+    return $bResult;
+}
+
+function mit3xxx_getShowBookmarks() {
+    $bResult = 'true';
+    $show = get_option("mit3xxx_toolbar_show_bookmarks", "show");
+    if ("show" != $show) {        
+        $bResult = 'false';
+    }    
+    return $bResult;
+}
+
 function mit3xxx_getTwitterAccount() {
     $sResult = get_option("mit3xxx_toolbar_twitter_account", "");
     return $sResult;
 }
 
 function mit3xxx_toolbar_footer($content) {
-    $account = mit3xxx_getAccount();
+    
+    $theme = get_option("mit3xxx_toolbar_theme", "start");
+    $position = get_option("mit3xxx_toolbar_position", "left");    
+    $showTwitter = mit3xxx_getShowTwitter();
+    $showBookmarks = mit3xxx_getShowBookmarks();
+    
     $website = mit3xxx_getWebsite();
     $rss = mit3xxx_getRss();
     $twitter_account = mit3xxx_getTwitterAccount();
-    $theme = get_option("mit3xxx_toolbar_theme", "start");
-    $position = get_option("mit3xxx_toolbar_position", "left");
+    
+    $account = mit3xxx_getAccount();
     
     $codesnippet = '
 <div id="mit3xxx_toolbar" class="mit3xxx_toolbar">
@@ -234,24 +296,31 @@ function mit3xxx_toolbar_footer($content) {
 //<![CDATA[
 mit3xxxToolbarOptions = {};
 mit3xxxToolbarOptions.source = "wordpress";
-mit3xxxToolbarOptions.version = "3-0";
+mit3xxxToolbarOptions.version = "2.2";
+mit3xxxToolbarOptions.theme = "#THEME#";
+mit3xxxToolbarOptions.position = "#POSITION#";
+mit3xxxToolbarOptions.show_twitter = #SHOW_TWITTER#;
+mit3xxxToolbarOptions.show_bookmarks = #SHOW_BOOKMARKS#;
+
 mit3xxxToolbarOptions.homepage = "#WEBSITE#";
 mit3xxxToolbarOptions.rss = "#RSS#";
-mit3xxxToolbarOptions.theme = "#THEME#";
 mit3xxxToolbarOptions.twitter_account = "#TWITTER_ACCOUNT#";
-mit3xxxToolbarOptions.position = "#POSITION#";
 mit3xxxToolbarOptions.account = "#ACCOUNT#";
 //]]>
 </script>
 <script src="http://toolbar.mit3xxx.de/static/js/m3x-toolbar.js" type="text/javascript"></script>
 ';
     
-    $codesnippet = str_replace('#ACCOUNT#', $account, $codesnippet);
+    $codesnippet = str_replace('#THEME#', $theme, $codesnippet);
+    $codesnippet = str_replace('#POSITION#', $position, $codesnippet);    
+    $codesnippet = str_replace('#SHOW_TWITTER#', $showTwitter, $codesnippet);
+    $codesnippet = str_replace('#SHOW_BOOKMARKS#', $showBookmarks, $codesnippet);
+    
     $codesnippet = str_replace('#WEBSITE#', $website, $codesnippet);
     $codesnippet = str_replace('#RSS#', $rss, $codesnippet);
     $codesnippet = str_replace('#TWITTER_ACCOUNT#', $twitter_account, $codesnippet);
-    $codesnippet = str_replace('#POSITION#', $position, $codesnippet);
-    $codesnippet = str_replace('#THEME#', $theme, $codesnippet);
+    $codesnippet = str_replace('#ACCOUNT#', $account, $codesnippet);
+    
 
     echo $codesnippet;
     
