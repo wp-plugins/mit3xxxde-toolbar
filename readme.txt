@@ -1,10 +1,10 @@
 === mit3xxx.de Toolbar ===
 Contributors: The mit3xxx.de Team
 Donate link: http://www.mit3xxx.de/
-Tags: toolbar, sidebar, widget, twitter, rss, bookmark, facebook, del.icio.us, delicious, friendfeed , yahoo, google bookmarks, netvibes, linkedIn, misterwong 
+Tags: toolbar, google, search, sidebar, widget, twitter, rss, bookmark, facebook, del.icio.us, delicious, friendfeed , yahoo, google bookmarks, netvibes, linkedIn, misterwong 
 Requires at least: 2.8
 Tested up to: 2.8
-Stable tag: 2.2
+Stable tag: 2.3
 
 Adds the mit3xxx.de toolbar to your website.
 
@@ -40,10 +40,11 @@ Yep! The features you see today on mit3xxx.de will always be free.
 
 == Screenshots ==
 
-1. The toolbar with the "start"-Theme. More then 20 themes available.
-2. Bookmark-Dialog with the "start"-Theme.
-3. Twitter-Dialog with the "start"-Theme. 
-4. Admin-Dialog.
+1. The toolbar with the "start"-Design. More then 20 designs available.
+2. Bookmark-Dialog with the "start"-Design.
+3. Twitter-Dialog with the "start"-Design. 
+4. Search-Dialog with the "start"-Design.
+5. Admin-Dialog.
 
 == PHP Version ==
 
@@ -51,9 +52,8 @@ PHP 5+ is preferred; PHP 4 is supported.
 
 == Changelog ==
 
-= 2.2 =
-* you can enable/disable the twitter button 
-* you can enable/disable the bookmark button
+= 2.3 =
+* new SearchDialog 
 
 = 2.0 =
 * new toolbar code

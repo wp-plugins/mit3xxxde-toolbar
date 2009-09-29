@@ -21,7 +21,7 @@ Plugin Name: Mit3xxx Toolbar
 Plugin URI: http://wordpress.org/extend/plugins/mit3xxxde-toolbar
 Description: The mit3xxx toolbar allows you to add the following features to your site: * navigate to the start page * integrate a button to your rss-feed * let your users tweet your content * let your users share your content to social network sites such as Delicious, Digg, Facebook, and more social bookmarking and sharing sites * Provides more then 20 themes
 Author: The mit3xxx.de Team
-Version: 2.2
+Version: 2.1
 Author URI: http://www.mit3xxx.de/
 */
 
@@ -40,6 +40,8 @@ if ('insert' == $HTTP_POST_VARS['action']) {
     update_option("mit3xxx_toolbar_twitter_account",$HTTP_POST_VARS['mit3xxx_toolbar_twitter_account']); 
     update_option("mit3xxx_toolbar_show_twitter",$HTTP_POST_VARS['mit3xxx_toolbar_show_twitter']);
     update_option("mit3xxx_toolbar_show_bookmarks",$HTTP_POST_VARS['mit3xxx_toolbar_show_bookmarks']);
+    update_option("mit3xxx_toolbar_show_search",$HTTP_POST_VARS['mit3xxx_toolbar_show_search']);
+    update_option("mit3xxx_toolbar_search_website",$HTTP_POST_VARS['mit3xxx_toolbar_search_website']);
 }
 
 
@@ -61,6 +63,9 @@ function mit3xxx_toolbar_option_page() {
 
     $mit3xxx_toolbar_show_bookmarks = get_option("mit3xxx_toolbar_show_bookmarks", "show");
     $showBookmarks = array('show', 'hide');
+
+    $mit3xxx_toolbar_show_search = get_option("mit3xxx_toolbar_show_search", "show");
+    $showSearch = array('show', 'hide');
     
     ?>
     <div class="wrap">
@@ -149,6 +154,26 @@ foreach ($showBookmarks as $show) {
           </td>
         </tr>
 
+
+        <tr>
+          <th nowrap valign="top" align="left" width="33%">Show search button</th>
+          <td>
+            <select name="mit3xxx_toolbar_show_search">                     
+<?php 
+foreach ($showSearch as $show) {
+    if ($mit3xxx_toolbar_show_search == $show) {
+        echo "<option value='" . $show . "' selected='selected'>" . $show . "</option>";
+    }
+    else {
+        echo "<option value='" . $show . "'>" . $show . "</option>";
+    }
+}
+?>
+            </select>
+            <br />Select search visibility
+          </td>
+        </tr>
+
        </table>
        </fieldset>
 
@@ -180,6 +205,15 @@ foreach ($showBookmarks as $show) {
             <br />Enter your twitter account. For example: mit3xxx
           </td>
         </tr>
+
+        <tr>
+          <th nowrap valign="top" align="left" idth="33%">Search Website</th>
+          <td>
+            <input name="mit3xxx_toolbar_search_website" value="<?php echo get_option("mit3xxx_toolbar_search_website", "http://"); ?>" type="text" size="50" />
+            <br />Enter the url of your website. For example: http://www.mit3xxx.de/
+          </td>
+        </tr>
+
         </table>
         </fieldset>
         
@@ -250,6 +284,12 @@ function mit3xxx_getRss() {
     return $sResult;
 }
 
+function mit3xxx_getSearchWebsite() {
+    $website = get_option("mit3xxx_toolbar_search_website", "");
+    $sResult = mit3xxx_getValidURL($website);
+    return $sResult;
+}
+
 function mit3xxx_getShowTwitter() {
     $bResult = 'true';
     $show = get_option("mit3xxx_toolbar_show_twitter", "show");
@@ -268,6 +308,15 @@ function mit3xxx_getShowBookmarks() {
     return $bResult;
 }
 
+function mit3xxx_getShowSearch() {
+    $bResult = 'true';
+    $show = get_option("mit3xxx_toolbar_show_search", "show");
+    if ("show" != $show) {        
+        $bResult = 'false';
+    }    
+    return $bResult;
+}
+
 function mit3xxx_getTwitterAccount() {
     $sResult = get_option("mit3xxx_toolbar_twitter_account", "");
     return $sResult;
@@ -279,9 +328,11 @@ function mit3xxx_toolbar_footer($content) {
     $position = get_option("mit3xxx_toolbar_position", "left");    
     $showTwitter = mit3xxx_getShowTwitter();
     $showBookmarks = mit3xxx_getShowBookmarks();
+    $showSearch = mit3xxx_getShowSearch();
     
     $website = mit3xxx_getWebsite();
     $rss = mit3xxx_getRss();
+    $searchWebsite = mit3xxx_getSearchWebsite();
     $twitter_account = mit3xxx_getTwitterAccount();
     
     $account = mit3xxx_getAccount();
@@ -296,14 +347,17 @@ function mit3xxx_toolbar_footer($content) {
 //<![CDATA[
 mit3xxxToolbarOptions = {};
 mit3xxxToolbarOptions.source = "wordpress";
-mit3xxxToolbarOptions.version = "2.2";
+mit3xxxToolbarOptions.version = "3-0";
 mit3xxxToolbarOptions.theme = "#THEME#";
 mit3xxxToolbarOptions.position = "#POSITION#";
 mit3xxxToolbarOptions.show_twitter = #SHOW_TWITTER#;
 mit3xxxToolbarOptions.show_bookmarks = #SHOW_BOOKMARKS#;
+mit3xxxToolbarOptions.show_search = #SHOW_SEARCH#;
 
 mit3xxxToolbarOptions.homepage = "#WEBSITE#";
 mit3xxxToolbarOptions.rss = "#RSS#";
+mit3xxxToolbarOptions.search_website = "#SEARCH_WEBSITE#";
+
 mit3xxxToolbarOptions.twitter_account = "#TWITTER_ACCOUNT#";
 mit3xxxToolbarOptions.account = "#ACCOUNT#";
 //]]>
@@ -315,9 +369,11 @@ mit3xxxToolbarOptions.account = "#ACCOUNT#";
     $codesnippet = str_replace('#POSITION#', $position, $codesnippet);    
     $codesnippet = str_replace('#SHOW_TWITTER#', $showTwitter, $codesnippet);
     $codesnippet = str_replace('#SHOW_BOOKMARKS#', $showBookmarks, $codesnippet);
+    $codesnippet = str_replace('#SHOW_SEARCH#', $showSearch, $codesnippet);
     
     $codesnippet = str_replace('#WEBSITE#', $website, $codesnippet);
     $codesnippet = str_replace('#RSS#', $rss, $codesnippet);
+    $codesnippet = str_replace('#SEARCH_WEBSITE#', $searchWebsite, $codesnippet);
     $codesnippet = str_replace('#TWITTER_ACCOUNT#', $twitter_account, $codesnippet);
     $codesnippet = str_replace('#ACCOUNT#', $account, $codesnippet);
     
