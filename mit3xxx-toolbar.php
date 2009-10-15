@@ -37,7 +37,8 @@ if ('insert' == $HTTP_POST_VARS['action']) {
     update_option("mit3xxx_toolbar_rss",$HTTP_POST_VARS['mit3xxx_toolbar_rss']);
     update_option("mit3xxx_toolbar_theme",$HTTP_POST_VARS['mit3xxx_toolbar_theme']);
     update_option("mit3xxx_toolbar_position",$HTTP_POST_VARS['mit3xxx_toolbar_position']);
-    update_option("mit3xxx_toolbar_twitter_account",$HTTP_POST_VARS['mit3xxx_toolbar_twitter_account']); 
+    update_option("mit3xxx_toolbar_twitter_account",$HTTP_POST_VARS['mit3xxx_toolbar_twitter_account']);
+    update_option("mit3xxx_toolbar_show_back_to_top",$HTTP_POST_VARS['mit3xxx_toolbar_show_back_to_top']); 
     update_option("mit3xxx_toolbar_show_twitter",$HTTP_POST_VARS['mit3xxx_toolbar_show_twitter']);
     update_option("mit3xxx_toolbar_show_bookmarks",$HTTP_POST_VARS['mit3xxx_toolbar_show_bookmarks']);
     update_option("mit3xxx_toolbar_show_search",$HTTP_POST_VARS['mit3xxx_toolbar_show_search']);
@@ -58,6 +59,9 @@ function mit3xxx_toolbar_option_page() {
     $mit3xxx_toolbar_position = get_option("mit3xxx_toolbar_position", "left");
     $positions = array('left', 'right');
 
+    $mit3xxx_toolbar_show_back_to_top = get_option("mit3xxx_toolbar_show_back_to_top", "show");
+    $showBackToTop = array('show', 'hide');
+    
     $mit3xxx_toolbar_show_twitter = get_option("mit3xxx_toolbar_show_twitter", "show");
     $showTwitter = array('show', 'hide');
 
@@ -113,6 +117,25 @@ foreach ($positions as $position) {
 ?>
         </select>
             <br />Select a position.
+          </td>
+        </tr>
+
+        <tr>
+          <th nowrap valign="top" align="left" width="33%">Show BackToTop button</th>
+          <td>
+            <select name="mit3xxx_toolbar_show_back_to_top">                      
+<?php 
+foreach ($showBackToTop as $show) {
+    if ($mit3xxx_toolbar_show_back_to_top == $show) {
+        echo "<option value='" . $show . "' selected='selected'>" . $show . "</option>";
+    }
+    else {
+        echo "<option value='" . $show . "'>" . $show . "</option>";
+    }
+}
+?>
+            </select>
+            <br />Select BackToTop visibility
           </td>
         </tr>
 
@@ -290,6 +313,15 @@ function mit3xxx_getSearchWebsite() {
     return $sResult;
 }
 
+function mit3xxx_getShowBackToTop() {
+    $bResult = 'true';
+    $show = get_option("mit3xxx_toolbar_show_back_to_top", "show");
+    if ("show" != $show) {        
+        $bResult = 'false';
+    }
+    return $bResult;
+}
+
 function mit3xxx_getShowTwitter() {
     $bResult = 'true';
     $show = get_option("mit3xxx_toolbar_show_twitter", "show");
@@ -325,7 +357,8 @@ function mit3xxx_getTwitterAccount() {
 function mit3xxx_toolbar_footer($content) {
     
     $theme = get_option("mit3xxx_toolbar_theme", "start");
-    $position = get_option("mit3xxx_toolbar_position", "left");    
+    $position = get_option("mit3xxx_toolbar_position", "left");
+    $showBackToTop = mit3xxx_getShowBackToTop();    
     $showTwitter = mit3xxx_getShowTwitter();
     $showBookmarks = mit3xxx_getShowBookmarks();
     $showSearch = mit3xxx_getShowSearch();
@@ -350,6 +383,7 @@ mit3xxxToolbarOptions.source = "wordpress";
 mit3xxxToolbarOptions.version = "3-0";
 mit3xxxToolbarOptions.theme = "#THEME#";
 mit3xxxToolbarOptions.position = "#POSITION#";
+mit3xxxToolbarOptions.show_back_to_top = #SHOW_BACK_TO_TOP#;
 mit3xxxToolbarOptions.show_twitter = #SHOW_TWITTER#;
 mit3xxxToolbarOptions.show_bookmarks = #SHOW_BOOKMARKS#;
 mit3xxxToolbarOptions.show_search = #SHOW_SEARCH#;
@@ -366,7 +400,9 @@ mit3xxxToolbarOptions.account = "#ACCOUNT#";
 ';
     
     $codesnippet = str_replace('#THEME#', $theme, $codesnippet);
-    $codesnippet = str_replace('#POSITION#', $position, $codesnippet);    
+    $codesnippet = str_replace('#POSITION#', $position, $codesnippet); 
+
+    $codesnippet = str_replace('#SHOW_BACK_TO_TOP#', $showBackToTop, $codesnippet);
     $codesnippet = str_replace('#SHOW_TWITTER#', $showTwitter, $codesnippet);
     $codesnippet = str_replace('#SHOW_BOOKMARKS#', $showBookmarks, $codesnippet);
     $codesnippet = str_replace('#SHOW_SEARCH#', $showSearch, $codesnippet);
@@ -376,7 +412,6 @@ mit3xxxToolbarOptions.account = "#ACCOUNT#";
     $codesnippet = str_replace('#SEARCH_WEBSITE#', $searchWebsite, $codesnippet);
     $codesnippet = str_replace('#TWITTER_ACCOUNT#', $twitter_account, $codesnippet);
     $codesnippet = str_replace('#ACCOUNT#', $account, $codesnippet);
-    
 
     echo $codesnippet;
     

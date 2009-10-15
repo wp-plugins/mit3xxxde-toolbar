@@ -4,7 +4,7 @@ Donate link: http://www.mit3xxx.de/
 Tags: toolbar, google, search, sidebar, widget, twitter, rss, bookmark, facebook, del.icio.us, delicious, friendfeed , yahoo, google bookmarks, netvibes, linkedIn, misterwong 
 Requires at least: 2.8
 Tested up to: 2.8
-Stable tag: 2.3
+Stable tag: 2.4
 
 Adds the mit3xxx.de toolbar to your website.
 
@@ -15,14 +15,16 @@ Adds the mit3xxx.de toolbar to your website.
 The mit3xxx toolbar allows you to add the following features to your site:
 
 * navigate to the start page
- 
+
+* navigate to top of the page
+
 * integrate a button to your rss-feed
 
 * let your users tweet your content
 
 * let your users share your content to social network sites such as Delicious, Digg, Facebook, and more social bookmarking and sharing sites
 
-* Provides more then 20 themes
+* provides 24 different designs
 
 
 == Installation ==
@@ -40,7 +42,7 @@ Yep! The features you see today on mit3xxx.de will always be free.
 
 == Screenshots ==
 
-1. The toolbar with the "start"-Design. More then 20 designs available.
+1. The toolbar with the "start"-Design. 24 different designs available.
 2. Bookmark-Dialog with the "start"-Design.
 3. Twitter-Dialog with the "start"-Design. 
 4. Search-Dialog with the "start"-Design.
@@ -51,6 +53,9 @@ Yep! The features you see today on mit3xxx.de will always be free.
 PHP 5+ is preferred; PHP 4 is supported.
 
 == Changelog ==
+
+= 2.4 =
+* new BackToTop-Button 
 
 = 2.3 =
 * new SearchDialog 
