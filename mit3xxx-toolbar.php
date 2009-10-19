@@ -21,10 +21,9 @@ Plugin Name: Mit3xxx Toolbar
 Plugin URI: http://wordpress.org/extend/plugins/mit3xxxde-toolbar
 Description: The mit3xxx toolbar allows you to add the following features to your site: * navigate to the start page * integrate a button to your rss-feed * let your users tweet your content * let your users share your content to social network sites such as Delicious, Digg, Facebook, and more social bookmarking and sharing sites * Provides more then 20 themes
 Author: The mit3xxx.de Team
-Version: 2.4
+Version: 2.5
 Author URI: http://www.mit3xxx.de/
 */
-
 
 // register the hooks
 add_action('admin_menu', 'mit3xxx_toolbar_add_menu');
@@ -42,7 +41,8 @@ if ('insert' == $HTTP_POST_VARS['action']) {
     update_option("mit3xxx_toolbar_show_twitter",$HTTP_POST_VARS['mit3xxx_toolbar_show_twitter']);
     update_option("mit3xxx_toolbar_show_bookmarks",$HTTP_POST_VARS['mit3xxx_toolbar_show_bookmarks']);
     update_option("mit3xxx_toolbar_show_search",$HTTP_POST_VARS['mit3xxx_toolbar_show_search']);
-    update_option("mit3xxx_toolbar_search_website",$HTTP_POST_VARS['mit3xxx_toolbar_search_website']);
+    update_option("mit3xxx_toolbar_search_website",$HTTP_POST_VARS['mit3xxx_toolbar_search_website']);    
+    update_option("mit3xxx_toolbar_distance",$HTTP_POST_VARS['mit3xxx_toolbar_distance']);
 }
 
 
@@ -119,6 +119,14 @@ foreach ($positions as $position) {
             <br />Select a position.
           </td>
         </tr>
+
+        <tr>
+          <th nowrap valign="top" align="left" width="33%">Distance From Top</th>
+          <td>
+            <input name="mit3xxx_toolbar_distance" value="<?php echo get_option("mit3xxx_toolbar_distance", "100px"); ?>" type="text" size="15" />
+            <br />Enter the distance from top. You can use 'px' or '%'. For example: 100px or 20%.
+          </td>
+        </tr>        
 
         <tr>
           <th nowrap valign="top" align="left" width="33%">Show BackToTop button</th>
@@ -286,6 +294,16 @@ function mit3xxx_getAccount() {
     return $sResult;
 }
 
+function mit3xxx_getDistance() {
+    $sResult = "20%";
+    $distance = get_option("mit3xxx_toolbar_distance", "20%");
+    $distance = trim($distance);
+    if ("" != $distance) {
+        $sResult = $distance;
+    }
+    return $sResult;
+}
+
 function mit3xxx_getValidURL($sUrl) {
     $sResult = "";
     $sTrim = trim($sUrl);
@@ -362,6 +380,7 @@ function mit3xxx_toolbar_footer($content) {
     $showTwitter = mit3xxx_getShowTwitter();
     $showBookmarks = mit3xxx_getShowBookmarks();
     $showSearch = mit3xxx_getShowSearch();
+    $distance = mit3xxx_getDistance();
     
     $website = mit3xxx_getWebsite();
     $rss = mit3xxx_getRss();
@@ -383,6 +402,7 @@ mit3xxxToolbarOptions.source = "wordpress";
 mit3xxxToolbarOptions.version = "3-0";
 mit3xxxToolbarOptions.theme = "#THEME#";
 mit3xxxToolbarOptions.position = "#POSITION#";
+mit3xxxToolbarOptions.distance = "#DISTANCE#";
 mit3xxxToolbarOptions.show_back_to_top = #SHOW_BACK_TO_TOP#;
 mit3xxxToolbarOptions.show_twitter = #SHOW_TWITTER#;
 mit3xxxToolbarOptions.show_bookmarks = #SHOW_BOOKMARKS#;
@@ -401,6 +421,7 @@ mit3xxxToolbarOptions.account = "#ACCOUNT#";
     
     $codesnippet = str_replace('#THEME#', $theme, $codesnippet);
     $codesnippet = str_replace('#POSITION#', $position, $codesnippet); 
+    $codesnippet = str_replace('#DISTANCE#', $distance, $codesnippet);
 
     $codesnippet = str_replace('#SHOW_BACK_TO_TOP#', $showBackToTop, $codesnippet);
     $codesnippet = str_replace('#SHOW_TWITTER#', $showTwitter, $codesnippet);

@@ -1,10 +1,10 @@
 === mit3xxx.de Toolbar ===
 Contributors: The mit3xxx.de Team
 Donate link: http://www.mit3xxx.de/
-Tags: toolbar, google, search, sidebar, widget, twitter, rss, bookmark, facebook, del.icio.us, delicious, friendfeed , yahoo, google bookmarks, netvibes, linkedIn, misterwong 
+Tags: social,toolbar,google,search,sidebar,toolbar,widget,twitter,rss,bookmark,facebook,del.icio.us,delicious,friendfeed,yahoo,google bookmarks,netvibes,linkedIn,misterwong 
 Requires at least: 2.8
 Tested up to: 2.8
-Stable tag: 2.4
+Stable tag: 2.5
 
 Adds the mit3xxx.de toolbar to your website.
 
@@ -14,17 +14,14 @@ Adds the mit3xxx.de toolbar to your website.
 
 The mit3xxx toolbar allows you to add the following features to your site:
 
-* navigate to the start page
-
-* navigate to top of the page
-
-* integrate a button to your rss-feed
-
-* let your users tweet your content
-
-* let your users share your content to social network sites such as Delicious, Digg, Facebook, and more social bookmarking and sharing sites
-
-* provides 24 different designs
+1. navigate to the start page
+2. navigate to top of the page
+3. integrate a button to your rss-feed
+4. let your users tweet your content
+5. let your users share your content to social network sites such as Delicious, Digg, Facebook, and more social bookmarking and sharing sites
+6. provides 24 different designs
+[Demo](http://toolbar.mit3xxx.de/demo/demo-start.html) |
+[Plugin Information](http://www.mit3xxx.de/)
 
 
 == Installation ==
@@ -54,11 +51,14 @@ PHP 5+ is preferred; PHP 4 is supported.
 
 == Changelog ==
 
+= 2.5 =
+* new: you can change the distance from top 
+
 = 2.4 =
-* new BackToTop-Button 
+* new: BackToTop-Button 
 
 = 2.3 =
-* new SearchDialog 
+* new: SearchDialog 
 
 = 2.0 =
 * new toolbar code
@@ -66,7 +66,7 @@ PHP 5+ is preferred; PHP 4 is supported.
 * major bugfix release
 
 = 1.0.2 =
-* new TwitterDialog with tweets and "follow me"-button
+* new: TwitterDialog with tweets and "follow me"-button
 * fix many bugs
 
 
