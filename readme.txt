@@ -20,7 +20,7 @@ The mit3xxx toolbar allows you to add the following features to your site:
 4. let your users tweet your content
 5. let your users share your content to social network sites such as Delicious, Digg, Facebook, and more social bookmarking and sharing sites
 6. provides 24 different designs
-[Demo](http://toolbar.mit3xxx.de/demo/demo-start.html) |
+[Demo](http://toolbar.mit3xxx.de/demo/demo-black-tie.html) |
 [Plugin Information](http://www.mit3xxx.de/)
 
 
