@@ -21,9 +21,11 @@ Plugin Name: Mit3xxx Toolbar
 Plugin URI: http://wordpress.org/extend/plugins/mit3xxxde-toolbar
 Description: The mit3xxx toolbar allows you to add the following features to your site: * navigate to the start page * integrate a button to your rss-feed * let your users tweet your content * let your users share your content to social network sites such as Delicious, Digg, Facebook, and more social bookmarking and sharing sites * Provides more then 20 themes
 Author: The mit3xxx.de Team
-Version: 2.5
+Version: 2.6
 Author URI: http://www.mit3xxx.de/
 */
+
+include_once('mit3xxx_fw_toolbar.inc');
 
 // register the hooks
 add_action('admin_menu', 'mit3xxx_toolbar_add_menu');
@@ -42,7 +44,9 @@ if ('insert' == $HTTP_POST_VARS['action']) {
     update_option("mit3xxx_toolbar_show_bookmarks",$HTTP_POST_VARS['mit3xxx_toolbar_show_bookmarks']);
     update_option("mit3xxx_toolbar_show_search",$HTTP_POST_VARS['mit3xxx_toolbar_show_search']);
     update_option("mit3xxx_toolbar_search_website",$HTTP_POST_VARS['mit3xxx_toolbar_search_website']);    
-    update_option("mit3xxx_toolbar_distance",$HTTP_POST_VARS['mit3xxx_toolbar_distance']);
+    update_option("mit3xxx_toolbar_distance",$HTTP_POST_VARS['mit3xxx_toolbar_distance']);    
+    update_option("mit3xxx_toolbar_style",$HTTP_POST_VARS['mit3xxx_toolbar_style']);
+    update_option("mit3xxx_toolbar_distance_from_position",$HTTP_POST_VARS['mit3xxx_toolbar_distance_from_position']);
 }
 
 
@@ -57,8 +61,11 @@ function mit3xxx_toolbar_option_page() {
                    );
 
     $mit3xxx_toolbar_position = get_option("mit3xxx_toolbar_position", "left");
-    $positions = array('left', 'right');
-
+    $positions = array('left', 'right', 'center_left', 'center_right');
+    
+    $mit3xxx_toolbar_style = get_option("mit3xxx_toolbar_style", "cutter");
+    $styles = array('cutter', 'normal');
+    
     $mit3xxx_toolbar_show_back_to_top = get_option("mit3xxx_toolbar_show_back_to_top", "show");
     $showBackToTop = array('show', 'hide');
     
@@ -100,6 +107,30 @@ foreach ($themes as $theme) {
           </td>
         </tr>
         
+
+        <tr>
+          <th nowrap valign="top" align="left" width="33%">Style</th>
+          <td>
+
+        <select name="mit3xxx_toolbar_style">    
+<?php 
+foreach ($styles as $style) {
+    if ($mit3xxx_toolbar_style == $style) {
+        echo "<option value='" . $style . "' selected='selected'>" . $style . "</option>";
+    }
+    else {
+        echo "<option value='" . $style . "'>" . $style . "</option>";
+    }
+}
+?>
+        </select>
+            <br />Select a Style.
+          </td>
+        </tr>
+        
+        
+        
+        
         <tr>
           <th nowrap valign="top" align="left" width="33%">Position</th>
           <td>
@@ -120,11 +151,20 @@ foreach ($positions as $position) {
           </td>
         </tr>
 
+
         <tr>
           <th nowrap valign="top" align="left" width="33%">Distance From Top</th>
           <td>
             <input name="mit3xxx_toolbar_distance" value="<?php echo get_option("mit3xxx_toolbar_distance", "100px"); ?>" type="text" size="15" />
             <br />Enter the distance from top. You can use 'px' or '%'. For example: 100px or 20%.
+          </td>
+        </tr>        
+
+        <tr>
+          <th nowrap valign="top" align="left" width="33%">Distance From Position</th>
+          <td>
+            <input name="mit3xxx_toolbar_distance_from_position" value="<?php echo get_option("mit3xxx_toolbar_distance_from_position", "0px"); ?>" type="text" size="15" />
+            <br />Enter the distance from position. For example: 100px or 0px.
           </td>
         </tr>        
 
@@ -283,158 +323,37 @@ function mit3xxx_toolbar_add_menu() {
     add_options_page('mit3xxx Toolbar', 'mit3xxx Toolbar', 9, __FILE__, 'mit3xxx_toolbar_option_page'); //optionenseite hinzufuegen
 }
 
-
-function mit3xxx_getAccount() {
-    $sResult = "anonymus";
-    $account = get_option("mit3xxx_toolbar_account", "m3x-");
-    $account = trim($account);
-    if ("" != $account && "m3x-" != $account) {
-        $sResult = $account;
-    }
-    return $sResult;
-}
-
-function mit3xxx_getDistance() {
-    $sResult = "20%";
-    $distance = get_option("mit3xxx_toolbar_distance", "20%");
-    $distance = trim($distance);
-    if ("" != $distance) {
-        $sResult = $distance;
-    }
-    return $sResult;
-}
-
-function mit3xxx_getValidURL($sUrl) {
-    $sResult = "";
-    $sTrim = trim($sUrl);
-    if ("http://" != $sTrim && "" != $sTrim) {
-        $sResult = $sTrim;
-    }
-    return $sResult;
-}
-
-function mit3xxx_getWebsite() {
-    $website = get_option("mit3xxx_toolbar_website", "");
-    $sResult = mit3xxx_getValidURL($website);
-    return $sResult;
-}
-
-function mit3xxx_getRss() {
-    $website = get_option("mit3xxx_toolbar_rss", "");
-    $sResult = mit3xxx_getValidURL($website);
-    return $sResult;
-}
-
-function mit3xxx_getSearchWebsite() {
-    $website = get_option("mit3xxx_toolbar_search_website", "");
-    $sResult = mit3xxx_getValidURL($website);
-    return $sResult;
-}
-
-function mit3xxx_getShowBackToTop() {
-    $bResult = 'true';
-    $show = get_option("mit3xxx_toolbar_show_back_to_top", "show");
-    if ("show" != $show) {        
-        $bResult = 'false';
-    }
-    return $bResult;
-}
-
-function mit3xxx_getShowTwitter() {
-    $bResult = 'true';
-    $show = get_option("mit3xxx_toolbar_show_twitter", "show");
-    if ("show" != $show) {        
-        $bResult = 'false';
-    }
-    return $bResult;
-}
-
-function mit3xxx_getShowBookmarks() {
-    $bResult = 'true';
-    $show = get_option("mit3xxx_toolbar_show_bookmarks", "show");
-    if ("show" != $show) {        
-        $bResult = 'false';
-    }    
-    return $bResult;
-}
-
-function mit3xxx_getShowSearch() {
-    $bResult = 'true';
-    $show = get_option("mit3xxx_toolbar_show_search", "show");
-    if ("show" != $show) {        
-        $bResult = 'false';
-    }    
-    return $bResult;
-}
-
-function mit3xxx_getTwitterAccount() {
-    $sResult = get_option("mit3xxx_toolbar_twitter_account", "");
-    return $sResult;
-}
-
 function mit3xxx_toolbar_footer($content) {
-    
-    $theme = get_option("mit3xxx_toolbar_theme", "start");
-    $position = get_option("mit3xxx_toolbar_position", "left");
-    $showBackToTop = mit3xxx_getShowBackToTop();    
-    $showTwitter = mit3xxx_getShowTwitter();
-    $showBookmarks = mit3xxx_getShowBookmarks();
-    $showSearch = mit3xxx_getShowSearch();
-    $distance = mit3xxx_getDistance();
-    
-    $website = mit3xxx_getWebsite();
-    $rss = mit3xxx_getRss();
-    $searchWebsite = mit3xxx_getSearchWebsite();
-    $twitter_account = mit3xxx_getTwitterAccount();
-    
-    $account = mit3xxx_getAccount();
-    
-    $codesnippet = '
-<div id="mit3xxx_toolbar" class="mit3xxx_toolbar">
-<a id="mit3xxx_toolbar_powered" href="http://www.mit3xxx.de/">
-<img src="http://toolbar.mit3xxx.de/static/images/blank.gif" alt="toolbar powered by www.mit3xxx.de" title="toolbar powered by www.mit3xxx.de" />
-</a>
-</div>
-<script type="text/javascript" charset="utf-8">
-//<![CDATA[
-mit3xxxToolbarOptions = {};
-mit3xxxToolbarOptions.source = "wordpress";
-mit3xxxToolbarOptions.version = "3-0";
-mit3xxxToolbarOptions.theme = "#THEME#";
-mit3xxxToolbarOptions.position = "#POSITION#";
-mit3xxxToolbarOptions.distance = "#DISTANCE#";
-mit3xxxToolbarOptions.show_back_to_top = #SHOW_BACK_TO_TOP#;
-mit3xxxToolbarOptions.show_twitter = #SHOW_TWITTER#;
-mit3xxxToolbarOptions.show_bookmarks = #SHOW_BOOKMARKS#;
-mit3xxxToolbarOptions.show_search = #SHOW_SEARCH#;
+    $sTheme = _mit3xxx_fw_getTheme(get_option("mit3xxx_toolbar_theme", ""));
+    $sStyle = _mit3xxx_fw_getStyle(get_option("mit3xxx_toolbar_style", ""));
+    $sPosition = _mit3xxx_fw_getPosition(get_option("mit3xxx_toolbar_position", ""));
+    $sDistance = _mit3xxx_fw_getDistance(get_option("mit3xxx_toolbar_distance", ""));
+    $sDistanceFromPosition = _mit3xxx_fw_getDistanceFromPosition(get_option("mit3xxx_toolbar_distance_from_position", ""));
 
-mit3xxxToolbarOptions.homepage = "#WEBSITE#";
-mit3xxxToolbarOptions.rss = "#RSS#";
-mit3xxxToolbarOptions.search_website = "#SEARCH_WEBSITE#";
+    $sWebsite = _mit3xxx_fw_getWebsite(get_option("mit3xxx_toolbar_website", ""));
+    $sRss = _mit3xxx_fw_getRss(get_option("mit3xxx_toolbar_rss", ""));
+    $sShowBackToTopButton = _mit3xxx_fw_getShowBackToTopButton(get_option("mit3xxx_toolbar_show_back_to_top", ""));
 
-mit3xxxToolbarOptions.twitter_account = "#TWITTER_ACCOUNT#";
-mit3xxxToolbarOptions.account = "#ACCOUNT#";
-//]]>
-</script>
-<script src="http://toolbar.mit3xxx.de/static/js/m3x-toolbar.js" type="text/javascript"></script>
-';
+    $sShowTwitterButton = _mit3xxx_fw_getShowTwitterButton(get_option("mit3xxx_toolbar_show_twitter", ""));
+    $sShowTwitterAccount = _mit3xxx_fw_getTwitterAccount(get_option("mit3xxx_toolbar_twitter_account", ""));
+
+    $sShowBookmarkButton = _mit3xxx_fw_getShowBookmarkButton(get_option("mit3xxx_toolbar_show_bookmarks", ""));
+
+    $sShowSearchButton = _mit3xxx_fw_getShowSearchButton(get_option("mit3xxx_toolbar_show_search", ""));
+    $sSearchWebsite = _mit3xxx_fw_getSearchWebsite(get_option("mit3xxx_toolbar_search_website", ""));
+
+    $sAccount = _mit3xxx_fw_getAccount(get_option("mit3xxx_toolbar_account", "m3x-"));
+
+    $sCode = _mit3xxx_fw_getToolbarCode('wordpress', '',
+                                        $sTheme, $sStyle, $sPosition, 
+                                        $sDistance, $sDistanceFromPosition,
+                                        $sWebsite, $sRss, $sShowBackToTopButton,
+                                        $sShowTwitterButton, $sShowTwitterAccount,
+                                        $sShowBookmarkButton,
+                                        $sShowSearchButton, $sSearchWebsite,
+                                        $sAccount);
     
-    $codesnippet = str_replace('#THEME#', $theme, $codesnippet);
-    $codesnippet = str_replace('#POSITION#', $position, $codesnippet); 
-    $codesnippet = str_replace('#DISTANCE#', $distance, $codesnippet);
-
-    $codesnippet = str_replace('#SHOW_BACK_TO_TOP#', $showBackToTop, $codesnippet);
-    $codesnippet = str_replace('#SHOW_TWITTER#', $showTwitter, $codesnippet);
-    $codesnippet = str_replace('#SHOW_BOOKMARKS#', $showBookmarks, $codesnippet);
-    $codesnippet = str_replace('#SHOW_SEARCH#', $showSearch, $codesnippet);
-    
-    $codesnippet = str_replace('#WEBSITE#', $website, $codesnippet);
-    $codesnippet = str_replace('#RSS#', $rss, $codesnippet);
-    $codesnippet = str_replace('#SEARCH_WEBSITE#', $searchWebsite, $codesnippet);
-    $codesnippet = str_replace('#TWITTER_ACCOUNT#', $twitter_account, $codesnippet);
-    $codesnippet = str_replace('#ACCOUNT#', $account, $codesnippet);
-
-    echo $codesnippet;
+    echo $sCode;
     
     return $content;
 }
