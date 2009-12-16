@@ -4,7 +4,7 @@ Donate link: http://www.mit3xxx.de/
 Tags: social,toolbar,google,search,sidebar,toolbar,widget,twitter,rss,bookmark,facebook,del.icio.us,delicious,friendfeed,yahoo,google bookmarks,netvibes,linkedIn,misterwong 
 Requires at least: 2.8
 Tested up to: 2.8
-Stable tag: 2.6
+Stable tag: 2.6.1
 
 Adds the mit3xxx.de toolbar to your website.
 

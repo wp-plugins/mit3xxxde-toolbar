@@ -21,7 +21,7 @@ Plugin Name: Mit3xxx Toolbar
 Plugin URI: http://wordpress.org/extend/plugins/mit3xxxde-toolbar
 Description: The mit3xxx toolbar allows you to add the following features to your site: * navigate to the start page * integrate a button to your rss-feed * let your users tweet your content * let your users share your content to social network sites such as Delicious, Digg, Facebook, and more social bookmarking and sharing sites * Provides more then 20 themes
 Author: The mit3xxx.de Team
-Version: 2.6
+Version: 2.6.1
 Author URI: http://www.mit3xxx.de/
 */
 
@@ -40,6 +40,7 @@ if ('insert' == $HTTP_POST_VARS['action']) {
     update_option("mit3xxx_toolbar_position",$HTTP_POST_VARS['mit3xxx_toolbar_position']);
     update_option("mit3xxx_toolbar_twitter_account",$HTTP_POST_VARS['mit3xxx_toolbar_twitter_account']);
     update_option("mit3xxx_toolbar_show_back_to_top",$HTTP_POST_VARS['mit3xxx_toolbar_show_back_to_top']); 
+    update_option("mit3xxx_toolbar_show_back_to_bottom",$HTTP_POST_VARS['mit3xxx_toolbar_show_back_to_bottom']);
     update_option("mit3xxx_toolbar_show_twitter",$HTTP_POST_VARS['mit3xxx_toolbar_show_twitter']);
     update_option("mit3xxx_toolbar_show_bookmarks",$HTTP_POST_VARS['mit3xxx_toolbar_show_bookmarks']);
     update_option("mit3xxx_toolbar_show_search",$HTTP_POST_VARS['mit3xxx_toolbar_show_search']);
@@ -68,6 +69,9 @@ function mit3xxx_toolbar_option_page() {
     
     $mit3xxx_toolbar_show_back_to_top = get_option("mit3xxx_toolbar_show_back_to_top", "show");
     $showBackToTop = array('show', 'hide');
+    
+    $mit3xxx_toolbar_show_back_to_bottom = get_option("mit3xxx_toolbar_show_back_to_bottom", "show");
+    $showBackToBottom = array('show', 'hide');
     
     $mit3xxx_toolbar_show_twitter = get_option("mit3xxx_toolbar_show_twitter", "show");
     $showTwitter = array('show', 'hide');
@@ -169,7 +173,7 @@ foreach ($positions as $position) {
         </tr>        
 
         <tr>
-          <th nowrap valign="top" align="left" width="33%">Show BackToTop button</th>
+          <th nowrap valign="top" align="left" width="33%">Show JumpToTop button</th>
           <td>
             <select name="mit3xxx_toolbar_show_back_to_top">                      
 <?php 
@@ -183,9 +187,30 @@ foreach ($showBackToTop as $show) {
 }
 ?>
             </select>
-            <br />Select BackToTop visibility
+            <br />Select JumpToTop visibility
           </td>
         </tr>
+
+        <tr>
+          <th nowrap valign="top" align="left" width="33%">Show JumpToBottom button</th>
+          <td>
+            <select name="mit3xxx_toolbar_show_back_to_bottom">                      
+<?php 
+foreach ($showBackToBottom as $show) {
+    if ($mit3xxx_toolbar_show_back_to_bottom == $show) {
+        echo "<option value='" . $show . "' selected='selected'>" . $show . "</option>";
+    }
+    else {
+        echo "<option value='" . $show . "'>" . $show . "</option>";
+    }
+}
+?>
+            </select>
+            <br />Select JumpToBottom visibility
+          </td>
+        </tr>
+        
+        
 
         <tr>
           <th nowrap valign="top" align="left" width="33%">Show twitter button</th>
@@ -333,6 +358,7 @@ function mit3xxx_toolbar_footer($content) {
     $sWebsite = _mit3xxx_fw_getWebsite(get_option("mit3xxx_toolbar_website", ""));
     $sRss = _mit3xxx_fw_getRss(get_option("mit3xxx_toolbar_rss", ""));
     $sShowBackToTopButton = _mit3xxx_fw_getShowBackToTopButton(get_option("mit3xxx_toolbar_show_back_to_top", ""));
+    $sShowBackToBottomButton = _mit3xxx_fw_getShowBackToBottomButton(get_option("mit3xxx_toolbar_show_back_to_bottom", ""));
 
     $sShowTwitterButton = _mit3xxx_fw_getShowTwitterButton(get_option("mit3xxx_toolbar_show_twitter", ""));
     $sShowTwitterAccount = _mit3xxx_fw_getTwitterAccount(get_option("mit3xxx_toolbar_twitter_account", ""));
@@ -347,7 +373,8 @@ function mit3xxx_toolbar_footer($content) {
     $sCode = _mit3xxx_fw_getToolbarCode('wordpress', '',
                                         $sTheme, $sStyle, $sPosition, 
                                         $sDistance, $sDistanceFromPosition,
-                                        $sWebsite, $sRss, $sShowBackToTopButton,
+                                        $sWebsite, $sRss, 
+                                        $sShowBackToTopButton, $sShowBackToBottomButton,
                                         $sShowTwitterButton, $sShowTwitterAccount,
                                         $sShowBookmarkButton,
                                         $sShowSearchButton, $sSearchWebsite,

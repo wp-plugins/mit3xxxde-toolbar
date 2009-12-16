@@ -67,6 +67,11 @@ function _mit3xxx_fw_getShowBackToTopButton($sValue) {
     return $sResult;    
 }
 
+function _mit3xxx_fw_getShowBackToBottomButton($sValue) {
+    $sResult = _mit3xxx_fw_getBoolValue($sValue);
+    return $sResult;    
+}
+
 function _mit3xxx_fw_getShowTwitterButton($sValue) {
     $sResult = _mit3xxx_fw_getBoolValue($sValue);
     return $sResult;    
@@ -137,7 +142,8 @@ function _mit3xxx_fw_getBoolValue($sValue) {
 function _mit3xxx_fw_getToolbarCode($sSource, $sVersion,
                                     $sTheme, $sStyle, $sPosition, 
                                     $sDistance, $sDistanceFromPosition,
-                                    $sWebsite, $sRss, $sShowBackToTopButton,
+                                    $sWebsite, $sRss, 
+                                    $sShowBackToTopButton, $sShowBackToBottomButton,
                                     $sShowTwitterButton, $sShowTwitterAccount,
                                     $sShowBookmarkButton,
                                     $sShowSearchButton, $sSearchWebsite,
@@ -162,6 +168,7 @@ function _mit3xxx_fw_getToolbarCode($sSource, $sVersion,
     
     mit3xxxToolbarOptions.homepage = "#WEBSITE#";
     mit3xxxToolbarOptions.show_back_to_top = #SHOW_BACK_TO_TOP#;
+    mit3xxxToolbarOptions.show_back_to_bottom = #SHOW_BACK_TO_BOTTOM#;
     mit3xxxToolbarOptions.rss = "#RSS#";
     
     mit3xxxToolbarOptions.show_twitter = #SHOW_TWITTER#;
@@ -189,6 +196,7 @@ function _mit3xxx_fw_getToolbarCode($sSource, $sVersion,
     
     $sCode = str_replace('#WEBSITE#', $sWebsite, $sCode);
     $sCode = str_replace('#SHOW_BACK_TO_TOP#', $sShowBackToTopButton, $sCode);
+    $sCode = str_replace('#SHOW_BACK_TO_BOTTOM#', $sShowBackToBottomButton, $sCode);
     $sCode = str_replace('#RSS#', $sRss, $sCode);
     
     $sCode = str_replace('#SHOW_TWITTER#', $sShowTwitterButton, $sCode);
