@@ -97,6 +97,12 @@ function _mit3xxx_fw_getSearchWebsite($sValue) {
     return $sResult;    
 }
 
+function _mit3xxx_fw_getShowPrintButton($sValue) {
+    $sResult = _mit3xxx_fw_getBoolValue($sValue);
+    return $sResult;    
+}
+
+
 /* </buttons_and_content> */
 /* ------ */
 
@@ -147,6 +153,7 @@ function _mit3xxx_fw_getToolbarCode($sSource, $sVersion,
                                     $sShowTwitterButton, $sShowTwitterAccount,
                                     $sShowBookmarkButton,
                                     $sShowSearchButton, $sSearchWebsite,
+                                    $sShowPrintButton,
                                     $sAccount) {
     $sCode = '
     <div id="mit3xxx_toolbar" class="mit3xxx_toolbar">
@@ -179,6 +186,8 @@ function _mit3xxx_fw_getToolbarCode($sSource, $sVersion,
     mit3xxxToolbarOptions.show_search = #SHOW_SEARCH#;
     mit3xxxToolbarOptions.search_website = "#SEARCH_WEBSITE#";
     
+    mit3xxxToolbarOptions.show_print = #SHOW_PRINT#;
+    
     mit3xxxToolbarOptions.account = "#ACCOUNT#";
     /* ]]> */    
     </script>
@@ -206,6 +215,8 @@ function _mit3xxx_fw_getToolbarCode($sSource, $sVersion,
     
     $sCode = str_replace('#SHOW_SEARCH#', $sShowSearchButton, $sCode);
     $sCode = str_replace('#SEARCH_WEBSITE#', $sSearchWebsite, $sCode);
+    
+    $sCode = str_replace('#SHOW_PRINT#', $sShowPrintButton, $sCode);
     
     $sCode = str_replace('#ACCOUNT#', $sAccount, $sCode);
     
