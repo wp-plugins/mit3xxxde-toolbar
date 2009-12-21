@@ -21,7 +21,7 @@ Plugin Name: Mit3xxx Toolbar
 Plugin URI: http://wordpress.org/extend/plugins/mit3xxxde-toolbar
 Description: The mit3xxx toolbar allows you to add the following features to your site: * navigate to the start page * integrate a button to your rss-feed * let your users tweet your content * let your users share your content to social network sites such as Delicious, Digg, Facebook, and more social bookmarking and sharing sites * Provides more then 20 themes
 Author: The mit3xxx.de Team
-Version: 2.6.1
+Version: 2.6.2
 Author URI: http://www.mit3xxx.de/
 */
 
@@ -47,6 +47,7 @@ if ('insert' == $HTTP_POST_VARS['action']) {
     update_option("mit3xxx_toolbar_search_website",$HTTP_POST_VARS['mit3xxx_toolbar_search_website']);    
     update_option("mit3xxx_toolbar_distance",$HTTP_POST_VARS['mit3xxx_toolbar_distance']);    
     update_option("mit3xxx_toolbar_style",$HTTP_POST_VARS['mit3xxx_toolbar_style']);
+    update_option("mit3xxx_toolbar_show_print",$HTTP_POST_VARS['mit3xxx_toolbar_show_print']);
     update_option("mit3xxx_toolbar_distance_from_position",$HTTP_POST_VARS['mit3xxx_toolbar_distance_from_position']);
 }
 
@@ -81,6 +82,9 @@ function mit3xxx_toolbar_option_page() {
 
     $mit3xxx_toolbar_show_search = get_option("mit3xxx_toolbar_show_search", "show");
     $showSearch = array('show', 'hide');
+
+    $mit3xxx_toolbar_show_print = get_option("mit3xxx_toolbar_show_print", "show");
+    $showPrint = array('show', 'hide');
     
     ?>
     <div class="wrap">
@@ -270,6 +274,28 @@ foreach ($showSearch as $show) {
           </td>
         </tr>
 
+
+        <tr>
+          <th nowrap valign="top" align="left" width="33%">Show print button</th>
+          <td>
+            <select name="mit3xxx_toolbar_show_print">                     
+<?php 
+foreach ($showPrint as $show) {
+    if ($mit3xxx_toolbar_show_print == $show) {
+        echo "<option value='" . $show . "' selected='selected'>" . $show . "</option>";
+    }
+    else {
+        echo "<option value='" . $show . "'>" . $show . "</option>";
+    }
+}
+?>
+            </select>
+            <br />Select print visibility
+          </td>
+        </tr>
+
+
+
        </table>
        </fieldset>
 
@@ -368,6 +394,8 @@ function mit3xxx_toolbar_footer($content) {
     $sShowSearchButton = _mit3xxx_fw_getShowSearchButton(get_option("mit3xxx_toolbar_show_search", ""));
     $sSearchWebsite = _mit3xxx_fw_getSearchWebsite(get_option("mit3xxx_toolbar_search_website", ""));
 
+    $sShowPrintButton = _mit3xxx_fw_getShowPrintButton(get_option("mit3xxx_toolbar_show_print", ""));
+    
     $sAccount = _mit3xxx_fw_getAccount(get_option("mit3xxx_toolbar_account", "m3x-"));
 
     $sCode = _mit3xxx_fw_getToolbarCode('wordpress', '',
@@ -378,6 +406,7 @@ function mit3xxx_toolbar_footer($content) {
                                         $sShowTwitterButton, $sShowTwitterAccount,
                                         $sShowBookmarkButton,
                                         $sShowSearchButton, $sSearchWebsite,
+                                        $sShowPrintButton,
                                         $sAccount);
     
     echo $sCode;
