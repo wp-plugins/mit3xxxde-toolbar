@@ -4,7 +4,7 @@ Donate link: http://www.mit3xxx.de/
 Tags: toolbar, sidebar, widget, twitter, rss, bookmark, facebook, del.icio.us, delicious, friendfeed , yahoo, google bookmarks, netvibes, linkedIn, misterwong 
 Requires at least: 2.8
 Tested up to: 2.8
-Stable tag: 2.6.2
+Stable tag: 2.6.3
 
 Adds the mit3xxx.de toolbar to your website.
 
@@ -40,16 +40,19 @@ Yep! The features you see today on mit3xxx.de will always be free.
 
 == Screenshots ==
 
-1. The toolbar with the "blitzer"-Design. 24 different designs available.
-2. Bookmark-Dialog with the "blitzer"-Design.
-3. Twitter-Dialog with the "blitzer"-Design.
-4. Search-Dialog with the "blitzer"-Design.
+1. The toolbar with the "start"-Theme. More then 20 themes available.
+2. Bookmark-Dialog with the "start"-Theme.
+3. Twitter-Dialog with the "start"-Theme.
+3. Admin-Dialog.
 
 == PHP Version ==
 
 PHP 5+ is preferred; PHP 4 is supported.
 
 == Changelog ==
+
+= 2.6.3 =
+* new feature: start and end text in twitter dialog
 
 = 2.6.2 =
 * new feature: print button

@@ -21,7 +21,7 @@ Plugin Name: Mit3xxx Toolbar
 Plugin URI: http://wordpress.org/extend/plugins/mit3xxxde-toolbar
 Description: The mit3xxx toolbar allows you to add the following features to your site: * navigate to the start page * integrate a button to your rss-feed * let your users tweet your content * let your users share your content to social network sites such as Delicious, Digg, Facebook, and more social bookmarking and sharing sites * Provides more then 20 themes
 Author: The mit3xxx.de Team
-Version: 2.6.2
+Version: 2.6.3
 Author URI: http://www.mit3xxx.de/
 */
 
@@ -39,6 +39,8 @@ if ('insert' == $HTTP_POST_VARS['action']) {
     update_option("mit3xxx_toolbar_theme",$HTTP_POST_VARS['mit3xxx_toolbar_theme']);
     update_option("mit3xxx_toolbar_position",$HTTP_POST_VARS['mit3xxx_toolbar_position']);
     update_option("mit3xxx_toolbar_twitter_account",$HTTP_POST_VARS['mit3xxx_toolbar_twitter_account']);
+    update_option("mit3xxx_toolbar_twitter_text_begin",$HTTP_POST_VARS['mit3xxx_toolbar_twitter_text_begin']);
+    update_option("mit3xxx_toolbar_twitter_text_end",$HTTP_POST_VARS['mit3xxx_toolbar_twitter_text_end']);
     update_option("mit3xxx_toolbar_show_back_to_top",$HTTP_POST_VARS['mit3xxx_toolbar_show_back_to_top']); 
     update_option("mit3xxx_toolbar_show_back_to_bottom",$HTTP_POST_VARS['mit3xxx_toolbar_show_back_to_bottom']);
     update_option("mit3xxx_toolbar_show_twitter",$HTTP_POST_VARS['mit3xxx_toolbar_show_twitter']);
@@ -329,6 +331,22 @@ foreach ($showPrint as $show) {
         </tr>
 
         <tr>
+          <th nowrap valign="top" align="left" width="33%">Twitter text begin</th>
+          <td>
+            <input name="mit3xxx_toolbar_twitter_text_begin" value="<?php echo get_option("mit3xxx_toolbar_twitter_text_begin", ""); ?>" type="text" size="50" />
+            <br />Enter the start of twitter text.
+          </td>
+        </tr>
+
+        <tr>
+          <th nowrap valign="top" align="left" width="33%">Twitter text end</th>
+          <td>
+            <input name="mit3xxx_toolbar_twitter_text_end" value="<?php echo get_option("mit3xxx_toolbar_twitter_text_end", ""); ?>" type="text" size="50" />
+            <br />Enter the end of twitter text.
+          </td>
+        </tr>
+
+        <tr>
           <th nowrap valign="top" align="left" idth="33%">Search Website</th>
           <td>
             <input name="mit3xxx_toolbar_search_website" value="<?php echo get_option("mit3xxx_toolbar_search_website", "http://"); ?>" type="text" size="50" />
@@ -387,7 +405,9 @@ function mit3xxx_toolbar_footer($content) {
     $sShowBackToBottomButton = _mit3xxx_fw_getShowBackToBottomButton(get_option("mit3xxx_toolbar_show_back_to_bottom", ""));
 
     $sShowTwitterButton = _mit3xxx_fw_getShowTwitterButton(get_option("mit3xxx_toolbar_show_twitter", ""));
-    $sShowTwitterAccount = _mit3xxx_fw_getTwitterAccount(get_option("mit3xxx_toolbar_twitter_account", ""));
+    $sTwitterAccount = _mit3xxx_fw_getTwitterAccount(get_option("mit3xxx_toolbar_twitter_account", ""));
+    $sTwitterTextBegin = _mit3xxx_fw_getTwitterAccount(get_option("mit3xxx_toolbar_twitter_text_begin", ""));
+    $sTwitterTextEnd = _mit3xxx_fw_getTwitterAccount(get_option("mit3xxx_toolbar_twitter_text_end", ""));
 
     $sShowBookmarkButton = _mit3xxx_fw_getShowBookmarkButton(get_option("mit3xxx_toolbar_show_bookmarks", ""));
 
@@ -403,7 +423,8 @@ function mit3xxx_toolbar_footer($content) {
                                         $sDistance, $sDistanceFromPosition,
                                         $sWebsite, $sRss, 
                                         $sShowBackToTopButton, $sShowBackToBottomButton,
-                                        $sShowTwitterButton, $sShowTwitterAccount,
+                                        $sShowTwitterButton, $sTwitterAccount,
+                                        $sTwitterTextBegin, $sTwitterTextEnd,
                                         $sShowBookmarkButton,
                                         $sShowSearchButton, $sSearchWebsite,
                                         $sShowPrintButton,

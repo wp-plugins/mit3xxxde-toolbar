@@ -82,6 +82,16 @@ function _mit3xxx_fw_getTwitterAccount($sValue) {
     return $sResult;    
 }
 
+function _mit3xxx_fw_getTwitterTextBegin($sValue) {
+    $sResult = trim($sValue);
+    return $sResult;    
+}
+
+function _mit3xxx_fw_getTwitterTextEnd($sValue) {
+    $sResult = trim($sValue);
+    return $sResult;    
+}
+
 function _mit3xxx_fw_getShowBookmarkButton($sValue) {
     $sResult = _mit3xxx_fw_getBoolValue($sValue);
     return $sResult;    
@@ -150,7 +160,8 @@ function _mit3xxx_fw_getToolbarCode($sSource, $sVersion,
                                     $sDistance, $sDistanceFromPosition,
                                     $sWebsite, $sRss, 
                                     $sShowBackToTopButton, $sShowBackToBottomButton,
-                                    $sShowTwitterButton, $sShowTwitterAccount,
+                                    $sShowTwitterButton, $sTwitterAccount,
+                                    $sTwitterTextBegin, $sTwitterTextEnd,
                                     $sShowBookmarkButton,
                                     $sShowSearchButton, $sSearchWebsite,
                                     $sShowPrintButton,
@@ -180,6 +191,8 @@ function _mit3xxx_fw_getToolbarCode($sSource, $sVersion,
     
     mit3xxxToolbarOptions.show_twitter = #SHOW_TWITTER#;
     mit3xxxToolbarOptions.twitter_account = "#TWITTER_ACCOUNT#";
+    mit3xxxToolbarOptions.twitter_text_begin = "#TWITTER_TEXT_BEGIN#";
+    mit3xxxToolbarOptions.twitter_text_end = "#TWITTER_TEXT_END#";
     
     mit3xxxToolbarOptions.show_bookmarks = #SHOW_BOOKMARKS#;
     
@@ -209,7 +222,9 @@ function _mit3xxx_fw_getToolbarCode($sSource, $sVersion,
     $sCode = str_replace('#RSS#', $sRss, $sCode);
     
     $sCode = str_replace('#SHOW_TWITTER#', $sShowTwitterButton, $sCode);
-    $sCode = str_replace('#TWITTER_ACCOUNT#', $sShowTwitterAccount, $sCode);
+    $sCode = str_replace('#TWITTER_ACCOUNT#', $sTwitterAccount, $sCode);
+    $sCode = str_replace('#TWITTER_TEXT_BEGIN#', $sTwitterTextBegin, $sCode);
+    $sCode = str_replace('#TWITTER_TEXT_END#', $sTwitterTextEnd, $sCode);
     
     $sCode = str_replace('#SHOW_BOOKMARKS#', $sShowBookmarkButton, $sCode);
     
