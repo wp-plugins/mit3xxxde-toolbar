@@ -92,6 +92,11 @@ function _mit3xxx_fw_getTwitterTextEnd($sValue) {
     return $sResult;    
 }
 
+function _mit3xxx_fw_getShowFacebookButton($sValue) {
+    $sResult = _mit3xxx_fw_getBoolValue($sValue);
+    return $sResult;    
+}
+
 function _mit3xxx_fw_getShowBookmarkButton($sValue) {
     $sResult = _mit3xxx_fw_getBoolValue($sValue);
     return $sResult;    
@@ -162,14 +167,14 @@ function _mit3xxx_fw_getToolbarCode($sSource, $sVersion,
                                     $sShowBackToTopButton, $sShowBackToBottomButton,
                                     $sShowTwitterButton, $sTwitterAccount,
                                     $sTwitterTextBegin, $sTwitterTextEnd,
-                                    $sShowBookmarkButton,
+                                    $sShowFacebookButton, $sShowBookmarkButton,
                                     $sShowSearchButton, $sSearchWebsite,
                                     $sShowPrintButton,
                                     $sAccount) {
     $sCode = '
     <div id="mit3xxx_toolbar" class="mit3xxx_toolbar">
-      <a id="mit3xxx_toolbar_powered" href="http://www.mit3xxx.de/">
-        <img src="http://toolbar.mit3xxx.de/static/images/blank.gif" alt="toolbar powered by www.mit3xxx.de" title="toolbar powered by www.mit3xxx.de" />
+      <a id="mit3xxx_toolbar_powered" href="http://www.iconcy.com/">
+        <img src="http://toolbar.mit3xxx.de/static/images/blank.gif" alt="toolbar powered by www.iconcy.com" title="toolbar powered by www.iconcy.com" />
       </a>
     </div>
     <script type="text/javascript" charset="utf-8">
@@ -193,6 +198,8 @@ function _mit3xxx_fw_getToolbarCode($sSource, $sVersion,
     mit3xxxToolbarOptions.twitter_account = "#TWITTER_ACCOUNT#";
     mit3xxxToolbarOptions.twitter_text_begin = "#TWITTER_TEXT_BEGIN#";
     mit3xxxToolbarOptions.twitter_text_end = "#TWITTER_TEXT_END#";
+    
+    mit3xxxToolbarOptions.show_facebook = #SHOW_FACEBOOK#;
     
     mit3xxxToolbarOptions.show_bookmarks = #SHOW_BOOKMARKS#;
     
@@ -225,6 +232,8 @@ function _mit3xxx_fw_getToolbarCode($sSource, $sVersion,
     $sCode = str_replace('#TWITTER_ACCOUNT#', $sTwitterAccount, $sCode);
     $sCode = str_replace('#TWITTER_TEXT_BEGIN#', $sTwitterTextBegin, $sCode);
     $sCode = str_replace('#TWITTER_TEXT_END#', $sTwitterTextEnd, $sCode);
+    
+    $sCode = str_replace('#SHOW_FACEBOOK#', $sShowFacebookButton, $sCode);
     
     $sCode = str_replace('#SHOW_BOOKMARKS#', $sShowBookmarkButton, $sCode);
     

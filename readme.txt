@@ -1,18 +1,18 @@
-=== mit3xxx.de Toolbar ===
-Contributors: The mit3xxx.de Team
-Donate link: http://www.mit3xxx.de/
+=== iconcy.com Website Toolbar ===
+Contributors: The iconcy.com Team
+Donate link: http://www.iconcy.com/
 Tags: toolbar, sidebar, widget, twitter, rss, bookmark, facebook, del.icio.us, delicious, friendfeed , yahoo, google bookmarks, netvibes, linkedIn, misterwong 
 Requires at least: 2.8
 Tested up to: 2.8
-Stable tag: 2.6.3
+Stable tag: 2.7
 
-Adds the mit3xxx.de toolbar to your website.
+Adds the iconcy.com toolbar to your website.
 
 == Description ==
 
-Adds the mit3xxx.de toolbar to your website.
+Adds the iconcy.com toolbar to your website.
 
-The mit3xxx toolbar allows you to add the following features to your site:
+The toolbar allows you to add the following features to your site:
 
 * navigate to the start page
  
@@ -20,9 +20,11 @@ The mit3xxx toolbar allows you to add the following features to your site:
 
 * let your users tweet your content
 
+* let your users share you site on facebook
+
 * let your users share your content to social network sites such as Delicious, Digg, Facebook, and more social bookmarking and sharing sites
 
-* Provides more then 20 themes
+* Provides 24 different designs
 
 
 == Installation ==
@@ -36,7 +38,7 @@ The mit3xxx toolbar allows you to add the following features to your site:
 
 = Is the toolbar free? =
 
-Yep! The features you see today on mit3xxx.de will always be free. 
+Yep! The features you see today on iconcy.com will always be free. 
 
 == Screenshots ==
 
@@ -50,6 +52,9 @@ Yep! The features you see today on mit3xxx.de will always be free.
 PHP 5+ is preferred; PHP 4 is supported.
 
 == Changelog ==
+
+= 2.7 =
+* new feature: facebook dialog
 
 = 2.6.3 =
 * new feature: start and end text in twitter dialog
