@@ -21,7 +21,7 @@ Plugin Name: Mit3xxx Toolbar
 Plugin URI: http://wordpress.org/extend/plugins/mit3xxxde-toolbar
 Description: The iconcy website toolbar allows you to add the following features to your site: * navigate to the start page * integrate a button to your rss-feed * let your users tweet your content * let your users share your content to social network sites such as Delicious, Digg, Facebook, and more social bookmarking and sharing sites * Provides more then 20 themes
 Author: The iconcy.com Team
-Version: 2.1
+Version: 2.7
 Author URI: http://www.iconcy.com/
 */
 
