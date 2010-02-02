@@ -1,5 +1,5 @@
 <?php
-/*  Copyright 2009  mit3xxx.de
+/*  Copyright 2010  iconcy.com
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@
 /*
 Plugin Name: Mit3xxx Toolbar
 Plugin URI: http://wordpress.org/extend/plugins/mit3xxxde-toolbar
-Description: The mit3xxx toolbar allows you to add the following features to your site: * navigate to the start page * integrate a button to your rss-feed * let your users tweet your content * let your users share your content to social network sites such as Delicious, Digg, Facebook, and more social bookmarking and sharing sites * Provides more then 20 themes
-Author: The mit3xxx.de Team
-Version: 2.6.3
-Author URI: http://www.mit3xxx.de/
+Description: The iconcy website toolbar allows you to add the following features to your site: * navigate to the start page * integrate a button to your rss-feed * let your users tweet your content * let your users share your content to social network sites such as Delicious, Digg, Facebook, and more social bookmarking and sharing sites * Provides more then 20 themes
+Author: The iconcy.com Team
+Version: 2.1
+Author URI: http://www.iconcy.com/
 */
 
 include_once('mit3xxx_fw_toolbar.inc');
@@ -44,6 +44,7 @@ if ('insert' == $HTTP_POST_VARS['action']) {
     update_option("mit3xxx_toolbar_show_back_to_top",$HTTP_POST_VARS['mit3xxx_toolbar_show_back_to_top']); 
     update_option("mit3xxx_toolbar_show_back_to_bottom",$HTTP_POST_VARS['mit3xxx_toolbar_show_back_to_bottom']);
     update_option("mit3xxx_toolbar_show_twitter",$HTTP_POST_VARS['mit3xxx_toolbar_show_twitter']);
+    update_option("mit3xxx_toolbar_show_facebook",$HTTP_POST_VARS['mit3xxx_toolbar_show_facebook']);
     update_option("mit3xxx_toolbar_show_bookmarks",$HTTP_POST_VARS['mit3xxx_toolbar_show_bookmarks']);
     update_option("mit3xxx_toolbar_show_search",$HTTP_POST_VARS['mit3xxx_toolbar_show_search']);
     update_option("mit3xxx_toolbar_search_website",$HTTP_POST_VARS['mit3xxx_toolbar_search_website']);    
@@ -78,7 +79,10 @@ function mit3xxx_toolbar_option_page() {
     
     $mit3xxx_toolbar_show_twitter = get_option("mit3xxx_toolbar_show_twitter", "show");
     $showTwitter = array('show', 'hide');
-
+    
+    $mit3xxx_toolbar_show_facebook = get_option("mit3xxx_toolbar_show_facebook", "show");
+    $showFacebook = array('show', 'hide');
+    
     $mit3xxx_toolbar_show_bookmarks = get_option("mit3xxx_toolbar_show_bookmarks", "show");
     $showBookmarks = array('show', 'hide');
 
@@ -234,6 +238,25 @@ foreach ($showTwitter as $show) {
 ?>
             </select>
             <br />Select twitter visibility
+          </td>
+        </tr>
+
+        <tr>
+          <th nowrap valign="top" align="left" width="33%">Show facebook button</th>
+          <td>
+            <select name="mit3xxx_toolbar_show_facebook">                      
+<?php 
+foreach ($showFacebook as $show) {
+    if ($mit3xxx_toolbar_show_facebook == $show) {
+        echo "<option value='" . $show . "' selected='selected'>" . $show . "</option>";
+    }
+    else {
+        echo "<option value='" . $show . "'>" . $show . "</option>";
+    }
+}
+?>
+            </select>
+            <br />Select facebook visibility
           </td>
         </tr>
 
@@ -409,6 +432,8 @@ function mit3xxx_toolbar_footer($content) {
     $sTwitterTextBegin = _mit3xxx_fw_getTwitterAccount(get_option("mit3xxx_toolbar_twitter_text_begin", ""));
     $sTwitterTextEnd = _mit3xxx_fw_getTwitterAccount(get_option("mit3xxx_toolbar_twitter_text_end", ""));
 
+    $sShowFacebookButton = _mit3xxx_fw_getShowFacebookButton(get_option("mit3xxx_toolbar_show_facebook", ""));
+    
     $sShowBookmarkButton = _mit3xxx_fw_getShowBookmarkButton(get_option("mit3xxx_toolbar_show_bookmarks", ""));
 
     $sShowSearchButton = _mit3xxx_fw_getShowSearchButton(get_option("mit3xxx_toolbar_show_search", ""));
@@ -425,7 +450,7 @@ function mit3xxx_toolbar_footer($content) {
                                         $sShowBackToTopButton, $sShowBackToBottomButton,
                                         $sShowTwitterButton, $sTwitterAccount,
                                         $sTwitterTextBegin, $sTwitterTextEnd,
-                                        $sShowBookmarkButton,
+                                        $sShowFacebookButton, $sShowBookmarkButton,
                                         $sShowSearchButton, $sSearchWebsite,
                                         $sShowPrintButton,
                                         $sAccount);
