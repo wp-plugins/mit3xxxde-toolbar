@@ -3,8 +3,8 @@ Contributors: The iconcy.com Team
 Donate link: http://www.iconcy.com/
 Tags: toolbar, sidebar, widget, twitter, rss, bookmark, facebook, del.icio.us, delicious, friendfeed , yahoo, google bookmarks, netvibes, linkedIn, misterwong 
 Requires at least: 2.8
-Tested up to: 2.8
-Stable tag: 2.7
+Tested up to: 3.0.4
+Stable tag: 4.0
 
 Adds the iconcy.com toolbar to your website.
 
@@ -43,9 +43,10 @@ Yep! The features you see today on iconcy.com will always be free.
 == Screenshots ==
 
 1. The toolbar with the "start"-Theme. More then 20 themes available.
-2. Bookmark-Dialog with the "start"-Theme.
-3. Twitter-Dialog with the "start"-Theme.
-3. Admin-Dialog.
+2. Twitter-Dialog.
+3. Facebook-Dialog.
+4. Bookmark-Dialog.
+5. Search-Dialog.
 
 == PHP Version ==
 
@@ -53,14 +54,11 @@ PHP 5+ is preferred; PHP 4 is supported.
 
 == Changelog ==
 
+= 4.0 =
+* redesign of toolbar code
+
 = 2.7 =
 * new feature: facebook dialog
-
-= 2.6.3 =
-* new feature: start and end text in twitter dialog
-
-= 2.6.2 =
-* new feature: print button
 
 = 2.0 =
 * new toolbar code
@@ -70,7 +68,6 @@ PHP 5+ is preferred; PHP 4 is supported.
 = 1.0.2 =
 * new TwitterDialog with tweets and "follow me"-button
 * fix many bugs
-
 
 = 1.0.1 =
 * account is not a mandatory field

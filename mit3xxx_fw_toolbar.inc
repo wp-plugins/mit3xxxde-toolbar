@@ -82,15 +82,15 @@ function _mit3xxx_fw_getTwitterAccount($sValue) {
     return $sResult;    
 }
 
-function _mit3xxx_fw_getTwitterTextBegin($sValue) {
-    $sResult = trim($sValue);
-    return $sResult;    
-}
+#function _mit3xxx_fw_getTwitterTextBegin($sValue) {
+#    $sResult = trim($sValue);
+#    return $sResult;    
+#}
 
-function _mit3xxx_fw_getTwitterTextEnd($sValue) {
-    $sResult = trim($sValue);
-    return $sResult;    
-}
+#function _mit3xxx_fw_getTwitterTextEnd($sValue) {
+#    $sResult = trim($sValue);
+#    return $sResult;    
+#}
 
 function _mit3xxx_fw_getShowFacebookButton($sValue) {
     $sResult = _mit3xxx_fw_getBoolValue($sValue);
@@ -112,10 +112,10 @@ function _mit3xxx_fw_getSearchWebsite($sValue) {
     return $sResult;    
 }
 
-function _mit3xxx_fw_getShowPrintButton($sValue) {
-    $sResult = _mit3xxx_fw_getBoolValue($sValue);
-    return $sResult;    
-}
+#function _mit3xxx_fw_getShowPrintButton($sValue) {
+#    $sResult = _mit3xxx_fw_getBoolValue($sValue);
+#    return $sResult;    
+#}
 
 
 /* </buttons_and_content> */
@@ -166,52 +166,41 @@ function _mit3xxx_fw_getToolbarCode($sSource, $sVersion,
                                     $sWebsite, $sRss, 
                                     $sShowBackToTopButton, $sShowBackToBottomButton,
                                     $sShowTwitterButton, $sTwitterAccount,
-                                    $sTwitterTextBegin, $sTwitterTextEnd,
                                     $sShowFacebookButton, $sShowBookmarkButton,
                                     $sShowSearchButton, $sSearchWebsite,
-                                    $sShowPrintButton,
                                     $sAccount) {
     $sCode = '
-    <div id="mit3xxx_toolbar" class="mit3xxx_toolbar">
-      <a id="mit3xxx_toolbar_powered" href="http://www.iconcy.com/">
-        <img src="http://toolbar.mit3xxx.de/static/images/blank.gif" alt="toolbar powered by www.iconcy.com" title="toolbar powered by www.iconcy.com" />
+    <div id="iconcy_toolbar">   
+      <a id="iconcy_powered" href="http://www.iconcy.com/">
+        <img src="http://toolbar.iconcy.de/static/images/blank.gif" alt="toolbar powered by www.iconcy.com" title="toolbar powered by www.iconcy.com" />
       </a>
-    </div>
+    </div>   
     <script type="text/javascript" charset="utf-8">
-    /* <![CDATA[ */    
-    mit3xxxToolbarOptions = {};
-    mit3xxxToolbarOptions.source = "#SOURCE#";
-    mit3xxxToolbarOptions.version = "#VERSION#";
+    /* <![CDATA[ */
+    iconcyAccount = "#ACCOUNT#";
     
-    mit3xxxToolbarOptions.theme = "#THEME#";
-    mit3xxxToolbarOptions.design = "#DESIGN#";
-    mit3xxxToolbarOptions.position = "#POSITION#";
-    mit3xxxToolbarOptions.distance = "#DISTANCE#";
-    mit3xxxToolbarOptions.distance_from_position = "#DISTANCE_FROM_POSITION#";
-    
-    mit3xxxToolbarOptions.homepage = "#WEBSITE#";
-    mit3xxxToolbarOptions.show_back_to_top = #SHOW_BACK_TO_TOP#;
-    mit3xxxToolbarOptions.show_back_to_bottom = #SHOW_BACK_TO_BOTTOM#;
-    mit3xxxToolbarOptions.rss = "#RSS#";
-    
-    mit3xxxToolbarOptions.show_twitter = #SHOW_TWITTER#;
-    mit3xxxToolbarOptions.twitter_account = "#TWITTER_ACCOUNT#";
-    mit3xxxToolbarOptions.twitter_text_begin = "#TWITTER_TEXT_BEGIN#";
-    mit3xxxToolbarOptions.twitter_text_end = "#TWITTER_TEXT_END#";
-    
-    mit3xxxToolbarOptions.show_facebook = #SHOW_FACEBOOK#;
-    
-    mit3xxxToolbarOptions.show_bookmarks = #SHOW_BOOKMARKS#;
-    
-    mit3xxxToolbarOptions.show_search = #SHOW_SEARCH#;
-    mit3xxxToolbarOptions.search_website = "#SEARCH_WEBSITE#";
-    
-    mit3xxxToolbarOptions.show_print = #SHOW_PRINT#;
-    
-    mit3xxxToolbarOptions.account = "#ACCOUNT#";
+    iconcyDeprecatedConfig = {"distance_from_top": "#DISTANCE#", // distance 
+                              "design": "#DESIGN#",                  
+                              "facebook_show": "#SHOW_FACEBOOK#", 
+                              "language": "en", 
+                              "bookmark_show": "#SHOW_BOOKMARKS#", 
+                              "search_website": "#SEARCH_WEBSITE#", 
+                              "homepage_url": "#WEBSITE#", 
+                              "rss_feed_url": "#RSS#", 
+                              "account_status": "s", 
+                              "theme": "#THEME#", 
+                              "distance_from_position": "#DISTANCE_FROM_POSITION#", 
+                              "twitter_show": "#SHOW_TWITTER#", 
+                              "twitter_account": "#TWITTER_ACCOUNT#", 
+                              "position": "#POSITION#", 
+                              "back_to_bottom_show": "#SHOW_BACK_TO_BOTTOM#", 
+                              "search_show": "#SHOW_SEARCH#", 
+                              "back_to_top_show": "#SHOW_BACK_TO_TOP#",
+                              "error": ""};    
+
     /* ]]> */    
     </script>
-    <script src="http://toolbar.mit3xxx.de/static/js/m3x-toolbar.js" type="text/javascript"></script>    
+    <script src="http://toolbar.iconcy.de/static/js/iconcy.toolbar.main.js" type="text/javascript"></script>    
     ';
     
     $sCode = str_replace('#SOURCE#', $sSource, $sCode);
@@ -230,8 +219,6 @@ function _mit3xxx_fw_getToolbarCode($sSource, $sVersion,
     
     $sCode = str_replace('#SHOW_TWITTER#', $sShowTwitterButton, $sCode);
     $sCode = str_replace('#TWITTER_ACCOUNT#', $sTwitterAccount, $sCode);
-    $sCode = str_replace('#TWITTER_TEXT_BEGIN#', $sTwitterTextBegin, $sCode);
-    $sCode = str_replace('#TWITTER_TEXT_END#', $sTwitterTextEnd, $sCode);
     
     $sCode = str_replace('#SHOW_FACEBOOK#', $sShowFacebookButton, $sCode);
     
@@ -239,8 +226,6 @@ function _mit3xxx_fw_getToolbarCode($sSource, $sVersion,
     
     $sCode = str_replace('#SHOW_SEARCH#', $sShowSearchButton, $sCode);
     $sCode = str_replace('#SEARCH_WEBSITE#', $sSearchWebsite, $sCode);
-    
-    $sCode = str_replace('#SHOW_PRINT#', $sShowPrintButton, $sCode);
     
     $sCode = str_replace('#ACCOUNT#', $sAccount, $sCode);
     
