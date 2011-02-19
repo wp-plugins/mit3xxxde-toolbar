@@ -253,7 +253,7 @@ function iconcy_toolbar_footer($content) {
     
     $sAccount = $helper->formatAccount(get_option("mit3xxx_toolbar_account", "m3x-"));
 
-    $sCode = $helper->getToolbarCode('wordpress', '',
+    $sCode = $helper->getToolbarCode('wordpress', '4.01',
                                       $sTheme, $sStyle, $sPosition, 
                                       $sDistance, $sDistanceFromPosition,
                                       $sWebsite, $sRss, 
