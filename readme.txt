@@ -3,8 +3,8 @@ Contributors: The iconcy.com Team
 Donate link: http://www.iconcy.com/
 Tags: toolbar, sidebar, widget, twitter, rss, bookmark, facebook, del.icio.us, delicious, friendfeed , yahoo, google bookmarks, netvibes, linkedIn, misterwong 
 Requires at least: 2.8
-Tested up to: 3.0.4
-Stable tag: 4.0
+Tested up to: 3.0.5
+Stable tag: 4.01
 
 Adds the iconcy.com toolbar to your website.
 
@@ -31,8 +31,8 @@ The toolbar allows you to add the following features to your site:
 
 1. Upload the folder 'mit3xxx-toolbar' to the '/wp-content/plugins/' directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Customize the plugin in the Settings > 'mit3xxx.de toolbar' menu
-4. Activate the toolbar in the Settings > 'mit3xxx.de toolbar' menu
+3. Customize the plugin in the Settings > 'iconcy toolbar' menu
+4. Activate the toolbar in the Settings > 'iconcy toolbar' menu
 
 == Frequently Asked Questions ==
 
@@ -50,7 +50,7 @@ Yep! The features you see today on iconcy.com will always be free.
 
 == PHP Version ==
 
-PHP 5+ is preferred; PHP 4 is supported.
+PHP 5+ is preferred.
 
 == Changelog ==
 
