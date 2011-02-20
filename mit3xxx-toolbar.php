@@ -21,7 +21,7 @@ Plugin Name: iconcy.com Toolbar
 Plugin URI: http://wordpress.org/extend/plugins/mit3xxxde-toolbar
 Description: The iconcy website toolbar allows you to add the following features to your site: * navigate to the start page * integrate a button to your rss-feed * let your users tweet your content * let your users share your content to social network sites such as Delicious, Digg, Facebook, and more social bookmarking and sharing sites * Provides more then 20 themes
 Author: The iconcy.com Team
-Version: 4.01
+Version: 4.02
 Author URI: http://www.iconcy.com/
 */
 
@@ -157,6 +157,10 @@ function iconcy_toolbar_option_page() {
         <legend>Layout settings</legend>
         <table width="100%" cellspacing="2" cellpadding="5" class="editform">
 		
+		<?php echo iconcy_getSelectBox('Theme', 'Select a theme.', 
+									   'mit3xxx_toolbar_theme', $themes, $toolbar_theme); ?>
+		
+		
 		<?php echo iconcy_getSelectBox('Style', 'Select a Style.', 
 									   'mit3xxx_toolbar_style', $styles, $toolbar_style); ?>
 									   
@@ -253,7 +257,7 @@ function iconcy_toolbar_footer($content) {
     
     $sAccount = $helper->formatAccount(get_option("mit3xxx_toolbar_account", "m3x-"));
 
-    $sCode = $helper->getToolbarCode('wordpress', '4.01',
+    $sCode = $helper->getToolbarCode('wordpress', '4.02',
                                       $sTheme, $sStyle, $sPosition, 
                                       $sDistance, $sDistanceFromPosition,
                                       $sWebsite, $sRss, 

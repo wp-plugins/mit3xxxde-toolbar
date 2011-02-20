@@ -4,7 +4,7 @@ Donate link: http://www.iconcy.com/
 Tags: toolbar, sidebar, widget, twitter, rss, bookmark, facebook, del.icio.us, delicious, friendfeed , yahoo, google bookmarks, netvibes, linkedIn, misterwong 
 Requires at least: 2.8
 Tested up to: 3.0.5
-Stable tag: 4.01
+Stable tag: 4.02
 
 Adds the iconcy.com toolbar to your website.
 
