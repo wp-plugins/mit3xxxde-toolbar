@@ -1,5 +1,5 @@
 <?php
-/*  Copyright 2010  iconcy.com
+/*  Copyright 2011  iconcy.com
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
